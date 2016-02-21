@@ -1,0 +1,13 @@
+{
+    "name": "nochso/omni",
+    "description": "Functionality that ends up somewhere anyway.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcel Voigt",
+            "email": "mv@noch.so"
+        }
+    ],
+    "require": {}
+}
