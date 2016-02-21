@@ -9,5 +9,15 @@
             "email": "mv@noch.so"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "nochso\\Omni\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "nochso\\Omni\\Test\\": "test/"
+        }
+    }
 }
