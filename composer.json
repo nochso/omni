@@ -19,5 +19,8 @@
         "psr-4": {
             "nochso\\Omni\\Test\\": "test/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.2"
     }
 }
