@@ -43,7 +43,7 @@ class EOLTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \RuntimeException
      */
-    public function testDetectThrows()
+    public function testDetect_WhenNoEOL_MustThrow()
     {
         EOL::detect(' xcx ');
     }
@@ -53,12 +53,12 @@ class EOLTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(EOL::EOL_CR_LF, (string)EOL::detectDefault("a\r\nx\r\nccc"));
     }
 
-    public function testDetectDefaultDoesntThrow()
+    public function testDetectDefault_WhenNoEOL_MustNotThrow()
     {
         $this->assertSame(EOL::EOL_LF, (string)EOL::detectDefault('a'));
     }
 
-    public function testDetectDefaultGiven()
+    public function testDetectDefault_WhenNoEOL_UseDefault()
     {
         $this->assertSame(EOL::EOL_CR_LF, (string)EOL::detectDefault('a', EOL::EOL_CR_LF));
     }
