@@ -20,6 +20,8 @@ class PathTest extends \PHPUnit_Framework_TestCase
             ['1/2/3/4/5.zip', ['1', '2', '3', '4', '5.zip']],
             ['1/2', [['1', '2']], 'Array as single parameter'],
             ['1/2/3.zip', [['1', '2'], '3.zip'], 'Array and string as parameter'],
+            ['1/2/3', [['1/2/', '/3']], 'Multiple slashes should be simplified'],
+            ['./1/2/3/', [['.//1//2//', '3//']], 'Multiple slashes should be simplified'],
         ];
     }
 
