@@ -42,4 +42,26 @@ final class Path
     {
         return str_replace(['\\', '/'], $directorySeparator, $path);
     }
+
+    /**
+     * Contains returns true if a base path contains a needle.
+     *
+     * Note that `realpath` is used on both base and needle: they need to exist or false is returned.
+     *
+     * Use this for avoiding directory traversal outside of a base path.
+     *
+     * @param string $base   Path to base directory.
+     * @param string $needle Needle that must exist within the base directory.
+     *
+     * @return bool True if both exist and needle does not escape the base folder.
+     */
+    public static function contains($base, $needle)
+    {
+        $realBase = realpath($base);
+        $needle = realpath($needle);
+        if ($realBase === false || $needle === false) {
+            return false;
+        }
+        return Strings::startsWith($needle, $base);
+    }
 }

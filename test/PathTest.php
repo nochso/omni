@@ -39,4 +39,19 @@ class PathTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('a\\b', Path::localize('a/b', '\\'));
         $this->assertSame('a\\b', Path::localize('a\\b', '\\'));
     }
+
+    public function testContains()
+    {
+        $this->assertTrue(Path::contains(__DIR__, __FILE__));
+    }
+
+    public function testContainsEscaping()
+    {
+        $this->assertFalse(Path::contains(__DIR__, __DIR__ . '/../README.md'));
+    }
+
+    public function testContainsFileMissing()
+    {
+        $this->assertFalse(Path::contains(__DIR__, __DIR__ . '/foobar'));
+    }
 }
