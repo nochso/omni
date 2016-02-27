@@ -28,7 +28,7 @@ class PathTest extends \PHPUnit_Framework_TestCase
      */
     public function testCombine($expected, $params, $message = '')
     {
-        $this->assertEquals($expected, call_user_func_array(Path::class . '::combine', $params), $message);
+        $this->assertEquals($expected, Path::combine(...$params), $message);
     }
 
     public function testLocalize()
