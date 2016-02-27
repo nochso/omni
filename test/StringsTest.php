@@ -45,20 +45,24 @@ class StringsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, Strings::endsWith($subject, $suffix));
     }
 
-//    public function indentMultilineProvider()
-//    {
-//        return [
-//            ["    a\r\n    b", "a\r\nb"],
-//            ["    a\r\n     b", "a\r\n b"],
-//            ['    ', ''],
-//        ];
-//    }
-//
-//    /**
-//     * @dataProvider indentMultilineProvider
-//     */
-//    public function testIndentMultiline($expected, $input)
-//    {
-//        $this->assertSame($expected, Strings::prefixMultiline($input));
-//    }
+    public function testGetMostFrequentNeedle()
+    {
+        $haystack = 'abababcc';
+        $needles = ['ab', 'c'];
+        $this->assertSame('ab', Strings::getMostFrequentNeedle($haystack, $needles));
+    }
+
+    public function testGetMostFrequentNeedle_WhenTied_MustReturnFirstTie()
+    {
+        $haystack = 'bbbaaa';
+        $needles = ['a', 'b'];
+        $this->assertSame('a', Strings::getMostFrequentNeedle($haystack, $needles));
+    }
+
+    public function testGetMostFrequentNeedle_WhenNoNeedle_MustReturnNull()
+    {
+        $haystack = '';
+        $needles = ['a', 'b'];
+        $this->assertNull(Strings::getMostFrequentNeedle($haystack, $needles));
+    }
 }
