@@ -1,6 +1,9 @@
 <?php
 namespace nochso\Omni;
 
+/**
+ * Multiline string class for working with lines of text.
+ */
 final class Multiline
 {
     /**
@@ -14,6 +17,8 @@ final class Multiline
     private $lines;
 
     /**
+     * Create a new Multiline object using a preferred EOL style.
+     *
      * @param string $input
      * @param string $defaultEol
      *
@@ -27,8 +32,8 @@ final class Multiline
     }
 
     /**
-     * @param array $lines
-     * @param       $eol
+     * @param array      $lines
+     * @param EOL|string $eol
      */
     public function __construct(array $lines, $eol)
     {
@@ -37,6 +42,8 @@ final class Multiline
     }
 
     /**
+     * __toString returns a single string using the current EOL style.
+     *
      * @return string
      */
     public function __toString()
@@ -45,6 +52,10 @@ final class Multiline
     }
 
     /**
+     * Get lines of this string as an array.
+     *
+     * Detected EOL characters are not present.
+     *
      * @return array
      */
     public function getLines()
@@ -53,6 +64,8 @@ final class Multiline
     }
 
     /**
+     * Get EOL style ending.
+     *
      * @return \nochso\Omni\EOL
      */
     public function getEol()
@@ -60,6 +73,11 @@ final class Multiline
         return $this->eol;
     }
 
+    /**
+     * Get max. length of all lines.
+     *
+     * @return int
+     */
     public function getMaxLength()
     {
         $length = 0;
@@ -70,6 +88,8 @@ final class Multiline
     }
 
     /**
+     * Set EOL used by this Multiline string.
+     *
      * @param \nochso\Omni\EOL|string $eol
      *
      * @return $this
@@ -97,11 +117,9 @@ final class Multiline
     }
 
     /**
-     * prefixMultiline strings with the same prefix for every line.
+     * Prefix all lines with a string.
      *
-     * End-of-line is detected by EOL::detect.
-     *
-     * @param string $prefix
+     * @param string $prefix The prefix to add to the start of the string.
      *
      * @return string
      */
@@ -114,9 +132,7 @@ final class Multiline
     }
 
     /**
-     * Pad multiline strings using `str_pad`.
-     *
-     * End-of-line is detected by EOL::detect
+     * Pad all lines to the same length using `str_pad`.
      *
      * @param int $length
      * @param int $padding     Optional argument pad_type can be STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH.

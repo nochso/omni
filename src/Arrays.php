@@ -1,6 +1,9 @@
 <?php
 namespace nochso\Omni;
 
+/**
+ * Arrays class provides methods for array manipulation missing from default PHP.
+ */
 final class Arrays
 {
     /**

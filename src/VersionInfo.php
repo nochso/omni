@@ -33,9 +33,9 @@ class VersionInfo
     private $infoFormat;
 
     /**
-     * @param string $name
-     * @param string $version
-     * @param string $infoFormat
+     * @param string $name       Package or application name.
+     * @param string $version    Version without a prefix.
+     * @param string $infoFormat Optional format to use for `getInfo`. Defaults to `self::INFO_FORMAT_DEFAULT`
      */
     public function __construct($name, $version, $infoFormat = self::INFO_FORMAT_DEFAULT)
     {

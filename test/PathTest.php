@@ -1,5 +1,4 @@
 <?php
-
 namespace nochso\Omni\Test;
 
 use nochso\Omni\Path;

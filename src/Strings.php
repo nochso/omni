@@ -2,12 +2,12 @@
 namespace nochso\Omni;
 
 /**
- * Strings class provides simple string functions missing from default PHP.
+ * Strings class provides methods for string handling missing from default PHP.
  */
 final class Strings
 {
     /**
-     * startsWith tests if the input begins with a prefix.
+     * startsWith returns true if the input begins with a prefix.
      *
      * @param string $input
      * @param string $prefix
@@ -20,7 +20,7 @@ final class Strings
     }
 
     /**
-     * endsWith tests if the input ends with a suffix.
+     * endsWith returns true if the input ends with a suffix.
      *
      * @param string $input
      * @param string $suffix
