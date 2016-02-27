@@ -4,7 +4,7 @@ namespace nochso\Omni;
 /**
  * VersionInfo consists of a package name and version.
  */
-class VersionInfo
+final class VersionInfo
 {
     /**
      * `Omni v0.1.0`.
