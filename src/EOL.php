@@ -80,7 +80,7 @@ final class EOL
      */
     public static function detect($input)
     {
-        $maxEol = self::getFrequentEOL($input);
+        $maxEol = Strings::getMostFrequentNeedle($input, array_keys(self::$eols));
         $missingEOL = $maxEol === null;
         if ($missingEOL) {
             throw new \RuntimeException('Could not detect end-of-line. There are no EOL chars in the input string.');
@@ -104,24 +104,5 @@ final class EOL
             $eol = new self($default);
         }
         return $eol;
-    }
-
-    /**
-     * @param string $input
-     *
-     * @return null|string
-     */
-    private static function getFrequentEOL($input)
-    {
-        $maxCount = 0;
-        $maxEol = null;
-        foreach (array_keys(self::$eols) as $eol) {
-            $newCount = substr_count($input, $eol);
-            if ($newCount > $maxCount) {
-                $maxCount = $newCount;
-                $maxEol = $eol;
-            }
-        }
-        return $maxEol;
     }
 }
