@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
+## [0.2.0] - 2016-02-28
 ### Added
 - New class `nochso\Omni\ArrayCollection` for creating collection classes.
 - New method `nochso\Omni\Multiline::append` to append text to the last or a certain line.
@@ -26,5 +27,6 @@ Major changes are prefixed with `MAJOR`.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/nochso/omni/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/nochso/omni/compare/0.1.0...0.1.1
