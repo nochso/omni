@@ -1,9 +1,6 @@
 <?php
 namespace nochso\Omni;
 
-/**
- * @todo Implement `convert`
- */
 final class EOL
 {
     const EOL_CR = "\r";
