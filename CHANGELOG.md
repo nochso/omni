@@ -7,6 +7,7 @@ Major changes are prefixed with `MAJOR`.
 ## [Unreleased]
 ### Added
 - New class `nochso\Omni\ArrayCollection` for creating collection classes.
+- New method `nochso\Omni\Multiline::append` to append text to the last or a certain line.
 
 ### Changed
 - `MAJOR` `nochso\Omni\Multiline` now inherits from `nochso\Omni\ArrayCollection`.
