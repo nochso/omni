@@ -1,7 +1,5 @@
 <?php
-
 namespace nochso\Omni\Test\PhpCsFixer;
-
 
 use nochso\Omni\PhpCsFixer\DefaultFinder;
 
