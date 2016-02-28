@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- New class `nochso\Omni\ArrayCollection` for creating collection classes.
 
 ## [0.1.1] - 2016-02-28
 ### Added
