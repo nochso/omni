@@ -6,6 +6,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - New class `nochso\Omni\ArrayCollection` for creating collection classes.
 
+### Changed
+- `MAJOR` `nochso\Omni\Multiline` now inherits from `nochso\Omni\ArrayCollection`.
+    - `__construct()` only takes one parameter from now on because of the parent constructor.
+
+### Removed
+- `MAJOR` Removed methods from `nochso\Omni\Multiline`.
+    - `__construct` Use the parent constructor or `create()` instead.
+    - `getLines` Use `toArray()` instead.
+
 ## [0.1.1] - 2016-02-28
 ### Added
 - New class `nochso\Omni\DotArray` for dot-notation access to nested arrays.

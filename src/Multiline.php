@@ -4,17 +4,12 @@ namespace nochso\Omni;
 /**
  * Multiline string class for working with lines of text.
  */
-final class Multiline
+final class Multiline extends ArrayCollection
 {
     /**
      * @var \nochso\Omni\EOL
      */
     private $eol;
-
-    /**
-     * @var array
-     */
-    private $lines;
 
     /**
      * Create a new Multiline object using a preferred EOL style.
@@ -28,17 +23,9 @@ final class Multiline
     {
         $eol = EOL::detectDefault($input, $defaultEol);
         $lines = explode($eol, $input);
-        return new self($lines, $eol);
-    }
-
-    /**
-     * @param array      $lines
-     * @param EOL|string $eol
-     */
-    public function __construct(array $lines, $eol)
-    {
-        $this->lines = $lines;
-        $this->setEol($eol);
+        $multiline = new self($lines);
+        $multiline->setEol($eol);
+        return $multiline;
     }
 
     /**
@@ -48,19 +35,7 @@ final class Multiline
      */
     public function __toString()
     {
-        return implode((string)$this->eol, $this->lines);
-    }
-
-    /**
-     * Get lines of this string as an array.
-     *
-     * Detected EOL characters are not present.
-     *
-     * @return array
-     */
-    public function getLines()
-    {
-        return $this->lines;
+        return implode((string)$this->eol, $this->list);
     }
 
     /**
@@ -74,14 +49,14 @@ final class Multiline
     }
 
     /**
-     * Get max. length of all lines.
+     * getMaxLength of all lines.
      *
      * @return int
      */
     public function getMaxLength()
     {
         $length = 0;
-        foreach ($this->lines as $line) {
+        foreach ($this->list as $line) {
             $length = max($length, strlen($line));
         }
         return $length;
@@ -104,15 +79,19 @@ final class Multiline
     }
 
     /**
-     * Apply a callable to every line.
+     * Append text to a certain line.
      *
-     * @param callable $callable
+     * @param string   $text
+     * @param null|int $index Optional, defaults to the last line. Other
      *
      * @return $this
      */
-    public function apply(callable $callable)
+    public function append($text, $index = null)
     {
-        $this->lines = array_map($callable, $this->lines);
+        if ($index === null) {
+            $index = count($this) - 1;
+        }
+        $this->list[$index] .= $text;
         return $this;
     }
 
@@ -134,10 +113,10 @@ final class Multiline
     /**
      * Pad all lines to the same length using `str_pad`.
      *
-     * @param int $length
-     * @param int $padding     Optional argument pad_type can be STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH.
-     *                         Defaults to STR_PAD_RIGHT.
-     * @param int $paddingType
+     * @param int    $length
+     * @param string $padding
+     * @param int    $paddingType Optional argument pad_type can be STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH.
+     *                            Defaults to STR_PAD_RIGHT.
      *
      * @return string
      */

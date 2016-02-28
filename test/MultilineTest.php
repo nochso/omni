@@ -49,7 +49,7 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
     public function testGetLines()
     {
         $ml = Multiline::create("a\nb");
-        $this->assertSame(['a', 'b'], $ml->getLines());
+        $this->assertSame(['a', 'b'], $ml->toArray());
     }
 
     public function testGetEOL()
@@ -63,5 +63,12 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
         $ml = Multiline::create("a\r\nb");
         $ml->setEol("\n");
         $this->assertSame("\n", (string)$ml->getEol());
+    }
+
+    public function testAppend()
+    {
+        $ml = Multiline::create("a\nb");
+        $ml->append('c');
+        $this->assertSame('bc', $ml[1]);
     }
 }
