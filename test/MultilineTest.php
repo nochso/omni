@@ -71,4 +71,25 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
         $ml->append('c');
         $this->assertSame('bc', $ml[1]);
     }
+
+    public function testGetMaxLength()
+    {
+        $ml = Multiline::create("a\nbb\nccc");
+        $this->assertSame(3, $ml->getMaxLength());
+    }
+
+    public function testGetMaxLengthEmpty()
+    {
+        $ml = Multiline::create('');
+        $this->assertSame(0, $ml->getMaxLength());
+
+        $ml = Multiline::create("\r\n");
+        $this->assertSame(0, $ml->getMaxLength());
+    }
+
+    public function testGetMaxLengthUTF8()
+    {
+        $ml = Multiline::create("a\nbb\nüäö");
+        $this->assertSame(3, $ml->getMaxLength());
+    }
 }
