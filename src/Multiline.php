@@ -1,6 +1,8 @@
 <?php
 namespace nochso\Omni;
 
+use Patchwork\Utf8;
+
 /**
  * Multiline string class for working with lines of text.
  */
@@ -57,7 +59,7 @@ final class Multiline extends ArrayCollection
     {
         $length = 0;
         foreach ($this->list as $line) {
-            $length = max($length, strlen($line));
+            $length = max($length, Utf8::strlen($line));
         }
         return $length;
     }
