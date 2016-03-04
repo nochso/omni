@@ -128,7 +128,7 @@ final class Multiline extends ArrayCollection
             $length = $this->getMaxLength();
         }
         $padder = function ($line) use ($length, $padding, $paddingType) {
-            return str_pad($line, $length, $padding, $paddingType);
+            return Utf8::str_pad($line, $length, $padding, $paddingType);
         };
         return $this->apply($padder);
     }
