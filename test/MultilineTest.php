@@ -15,6 +15,9 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
             ["xxxa\nxxbc\nxxxx", "a\nbc\n", 4, 'x', STR_PAD_LEFT],
             ["axxx\nbcxx\nxxxx", "a\nbc\n", 4, 'x', STR_PAD_RIGHT],
             ["xaxx\nxbcx\nxxxx", "a\nbc\n", 4, 'x', STR_PAD_BOTH],
+            ["aü\n ü", "aü\nü", null, ' ', STR_PAD_LEFT],
+            ["aü\nü ", "aü\nü", null, ' ', STR_PAD_RIGHT],
+            ["aüä\n ü ", "aüä\nü", null, ' ', STR_PAD_BOTH],
         ];
     }
 
