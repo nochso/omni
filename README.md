@@ -10,7 +10,7 @@ nochso/omni helps with every day nuisances like path or EOL handling.
 
 - Fully tested.
 - Clean code with low complexity.
-- No 3rd party dependencies by default.
+- No dependencies other than [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 - Not a framework.
 - Not another object-based wrapper around the standard PHP library.
 - One less reason to stumble upon the PHP.net comment section or have a Stackoverflow deja-vu.

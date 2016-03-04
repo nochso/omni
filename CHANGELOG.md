@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
+### Added
+- Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
+
 ## [0.2.0] - 2016-02-28
 ### Added
 - New class `nochso\Omni\ArrayCollection` for creating collection classes.
