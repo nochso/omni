@@ -20,7 +20,8 @@
     "autoload": {
         "psr-4": {
             "nochso\\Omni\\": "src/"
-        }
+        },
+        "files": ["src/bootstrap.php"]
     },
     "autoload-dev": {
         "psr-4": {
