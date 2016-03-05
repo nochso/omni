@@ -54,6 +54,8 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
     - `C` `DotArray` for easy access to multi-dimensional arrays.
         - `get()` the value of the element at the given dot key path.
         - `has()` returns true if an element exists at the given dot key path.
+        - `set()` a value at a certain path by creating missing elements and overwriting non-array values.
+        - `trySet()` sets a value at a certain path, expecting arrays or missing elements along the way.
     - `C` `EOL`
         - `__construct()`
         - `__toString()`

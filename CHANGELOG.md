@@ -7,6 +7,7 @@ Major changes are prefixed with `MAJOR`.
 ## [Unreleased]
 ### Added
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
+- New methods `DotArray::set` and `DotArray::trySet`
 
 ### Fixed
 - Fix UTF8 handling of `Multiline::getMaxLength`, `Multiline::pad` and `Strings::getMostFrequentNeedle`

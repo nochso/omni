@@ -43,6 +43,68 @@ final class DotArray
     }
 
     /**
+     * Set a value at a certain path by creating missing elements and overwriting non-array values.
+     *
+     * If any of the visited elements is not an array, it will be replaced with an array.
+     *
+     * This will overwrite existing non-array values.
+     *
+     * @param array  $array
+     * @param string $path
+     * @param mixed  $value
+     */
+    public static function set(array &$array, $path, $value)
+    {
+        self::setHelper($array, $path, $value, false);
+    }
+
+    /**
+     * trySet sets a value at a certain path, expecting arrays or missing elements along the way.
+     *
+     * If any of the visited elements is not an array, a \RuntimeException is thrown.
+     *
+     * Use this if you want to avoid overwriting existing non-array values.
+     *
+     * @param array  $array
+     * @param string $path
+     * @param mixed  $value
+     *
+     * @throws \RuntimeException
+     */
+    public static function trySet(array &$array, $path, $value)
+    {
+        self::setHelper($array, $path, $value, true);
+    }
+
+    private static function setHelper(array &$array, $path, $value, $strict = true)
+    {
+        $keys = self::extractKeys($path);
+        $lastKey = $keys[count($keys) - 1];
+        $keysWithoutLast = array_slice($keys, 0, -1);
+        $node = &$array;
+        foreach ($keysWithoutLast as $key) {
+            self::prepareNode($node, $key, $path, $strict);
+            $node = &$node[$key];
+        }
+        $node[$lastKey] = $value;
+    }
+
+    private static function prepareNode(array &$node, $key, $path, $strict)
+    {
+        if (!isset($node[$key]) || (!$strict && !is_array($node[$key]))) {
+            $node[$key] = [];
+        }
+        if ($strict && !is_array($node[$key])) {
+            throw new \RuntimeException(sprintf(
+                "Can not set value at path '%s' because the element at key '%s' is not an array. Found value of type '%s' instead.",
+                $path,
+                $key,
+                gettype($node[$key])
+            ));
+        }
+    }
+
+    /**
      * @param string $path
      *
      * @return array
