@@ -8,9 +8,11 @@ Major changes are prefixed with `MAJOR`.
 ### Added
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 - New methods `DotArray::set` and `DotArray::trySet`
+- New class `nochso\Omni\DotArray` to wrap an array replacing the newly named `Dot` class.
 
 ### Changed
-- Renamed class `DotArray` to `Dot`.
+- `MAJOR` Renamed class `DotArray` to `Dot`.
+    - Keep in mind there's still a `DotArray` which now wraps the static methods of `Dot`.
 
 ### Fixed
 - Fix UTF8 handling of `Multiline::getMaxLength`, `Multiline::pad` and `Strings::getMostFrequentNeedle`

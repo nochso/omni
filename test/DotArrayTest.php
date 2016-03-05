@@ -1,9 +1,12 @@
 <?php
 namespace nochso\Omni\Test;
 
-use nochso\Omni\Dot;
+use nochso\Omni\DotArray;
 
-class DotTest extends \PHPUnit_Framework_TestCase
+/**
+ * Note that these tests should also cover all of `\nochso\Omni\Dot`.
+ */
+class DotArrayTest extends \PHPUnit_Framework_TestCase
 {
     public function testGet()
     {
@@ -16,11 +19,11 @@ class DotTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-
-        $this->assertSame('av', Dot::get($arr, 'ak'));
-        $this->assertSame(['c1', 'c2'], Dot::get($arr, 'bk.ck'));
-        $this->assertSame('c1', Dot::get($arr, 'bk.ck.0'));
-        $this->assertSame('c2', Dot::get($arr, 'bk.ck.1'));
+        $da = new DotArray($arr);
+        $this->assertSame('av', $da->get('ak'));
+        $this->assertSame(['c1', 'c2'], $da->get('bk.ck'));
+        $this->assertSame('c1', $da->get('bk.ck.0'));
+        $this->assertSame('c2', $da->get('bk.ck.1'));
     }
 
     public function testGetEscapedKey()
@@ -30,13 +33,14 @@ class DotTest extends \PHPUnit_Framework_TestCase
                 'inner " key' => 'value',
             ],
         ];
-        $this->assertSame('value', Dot::get($arr, 'key\.complex.inner " key'));
+        $da = new DotArray($arr);
+        $this->assertSame('value', $da->get('key\.complex.inner " key'));
     }
 
     public function testGet_WhenMissing_UseDefault()
     {
-        $arr = [];
-        $this->assertSame('default', Dot::get($arr, 'missing.key', 'default'));
+        $da = new DotArray();
+        $this->assertSame('default', $da->get('missing.key', 'default'));
     }
 
     public function testHas()
@@ -50,25 +54,26 @@ class DotTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-        $this->assertTrue(Dot::has($arr, 'ak'));
-        $this->assertTrue(Dot::has($arr, 'bk'));
-        $this->assertTrue(Dot::has($arr, 'bk.ck'));
-        $this->assertTrue(Dot::has($arr, 'bk.ck.0'));
-        $this->assertTrue(Dot::has($arr, 'bk.ck.1'));
-        $this->assertFalse(Dot::has($arr, 'bk.ck.2'));
-        $this->assertFalse(Dot::has($arr, ''));
+        $da = new DotArray($arr);
+        $this->assertTrue($da->has('ak'));
+        $this->assertTrue($da->has('bk'));
+        $this->assertTrue($da->has('bk.ck'));
+        $this->assertTrue($da->has('bk.ck.0'));
+        $this->assertTrue($da->has('bk.ck.1'));
+        $this->assertFalse($da->has('bk.ck.2'));
+        $this->assertFalse($da->has(''));
     }
 
     public function testSet()
     {
-        $arr = [];
-        Dot::set($arr, 'a.b', 'c');
+        $da = new DotArray();
+        $da->set('a.b', 'c');
         $expected = [
             'a' => [
                 'b' => 'c',
             ],
         ];
-        $this->assertSame($expected, $arr);
+        $this->assertSame($expected, $da->getArray());
     }
 
     public function testSet_WhenExists_MustReplace()
@@ -78,13 +83,14 @@ class DotTest extends \PHPUnit_Framework_TestCase
                 'b' => 'c',
             ],
         ];
-        Dot::set($arr, 'a.b', 'X');
+        $da = new DotArray($arr);
+        $da->set('a.b', 'X');
         $expected = [
             'a' => [
                 'b' => 'X',
             ],
         ];
-        $this->assertSame($expected, $arr);
+        $this->assertSame($expected, $da->getArray());
     }
 
     public function testSet_WhenNotArray_MustReplace()
@@ -94,20 +100,21 @@ class DotTest extends \PHPUnit_Framework_TestCase
                 'b' => 'c',
             ],
         ];
-        Dot::set($arr, 'a.b.c', 'X');
-        $this->assertSame(['a' => ['b' => ['c' => 'X']]], $arr);
+        $da = new DotArray($arr);
+        $da->set('a.b.c', 'X');
+        $this->assertSame(['a' => ['b' => ['c' => 'X']]], $da->getArray());
     }
 
     public function testTrySet()
     {
-        $arr = [];
-        Dot::trySet($arr, 'a.b', 'c');
+        $da = new DotArray();
+        $da->trySet('a.b', 'c');
         $expected = [
             'a' => [
                 'b' => 'c',
             ],
         ];
-        $this->assertSame($expected, $arr);
+        $this->assertSame($expected, $da->getArray());
     }
 
     public function testTrySet_WhenExists_MustThrow()
@@ -115,7 +122,8 @@ class DotTest extends \PHPUnit_Framework_TestCase
         $arr = [
             'a' => 'b',
         ];
+        $da = new DotArray($arr);
         $this->expectException('RuntimeException');
-        Dot::trySet($arr, 'a.c', 'X');
+        $da->trySet('a.c', 'X');
     }
 }
