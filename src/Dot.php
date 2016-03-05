@@ -2,9 +2,9 @@
 namespace nochso\Omni;
 
 /**
- * DotArray for easy access to multi-dimensional arrays using dot notation.
+ * Dot allows easy access to multi-dimensional arrays using dot notation.
  */
-final class DotArray
+final class Dot
 {
     /**
      * Get the value of the element at the given dot key path.

@@ -9,6 +9,9 @@ Major changes are prefixed with `MAJOR`.
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 - New methods `DotArray::set` and `DotArray::trySet`
 
+### Changed
+- Renamed class `DotArray` to `Dot`.
+
 ### Fixed
 - Fix UTF8 handling of `Multiline::getMaxLength`, `Multiline::pad` and `Strings::getMostFrequentNeedle`
 

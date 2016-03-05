@@ -51,7 +51,7 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `offsetUnset()` allows using `unset`.
     - `C` `Arrays` class provides methods for array manipulation missing from default PHP.
         - `flatten()` arrays and non-arrays recursively into a 2D array.
-    - `C` `DotArray` for easy access to multi-dimensional arrays using dot notation.
+    - `C` `Dot` allows easy access to multi-dimensional arrays using dot notation.
         - `get()` the value of the element at the given dot key path.
         - `has()` returns true if an element exists at the given dot key path.
         - `set()` a value at a certain path by creating missing elements and overwriting non-array values.
