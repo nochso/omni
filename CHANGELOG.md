@@ -9,7 +9,7 @@ Major changes are prefixed with `MAJOR`.
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 
 ### Fixed
-- Fix UTF8 handling of `Multiline::getMaxLength` and `Multiline::pad`
+- Fix UTF8 handling of `Multiline::getMaxLength`, `Multiline::pad` and `Strings::getMostFrequentNeedle`
 
 ## [0.2.0] - 2016-02-28
 ### Added
