@@ -28,4 +28,10 @@ class TypeTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame('TypeTest', Type::getClassName($this));
     }
+
+    public function testGetClassNameUTF8()
+    {
+        $obj = new \nochso\Omni\Test\ÜTF8Namespaceöäü\ÜTF8Typeöäü();
+        $this->assertSame('ÜTF8Typeöäü', Type::getClassName($obj));
+    }
 }
