@@ -58,4 +58,64 @@ class DotArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(DotArray::has($arr, 'bk.ck.2'));
         $this->assertFalse(DotArray::has($arr, ''));
     }
+
+    public function testSet()
+    {
+        $arr = [];
+        DotArray::set($arr, 'a.b', 'c');
+        $expected = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        $this->assertSame($expected, $arr);
+    }
+
+    public function testSet_WhenExists_MustReplace()
+    {
+        $arr = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        DotArray::set($arr, 'a.b', 'X');
+        $expected = [
+            'a' => [
+                'b' => 'X',
+            ],
+        ];
+        $this->assertSame($expected, $arr);
+    }
+
+    public function testSet_WhenNotArray_MustReplace()
+    {
+        $arr = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        DotArray::set($arr, 'a.b.c', 'X');
+        $this->assertSame(['a' => ['b' => ['c' => 'X']]], $arr);
+    }
+
+    public function testTrySet()
+    {
+        $arr = [];
+        DotArray::trySet($arr, 'a.b', 'c');
+        $expected = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        $this->assertSame($expected, $arr);
+    }
+
+    public function testTrySet_WhenExists_MustThrow()
+    {
+        $arr = [
+            'a' => 'b',
+        ];
+        $this->expectException('RuntimeException');
+        DotArray::trySet($arr, 'a.c', 'X');
+    }
 }
