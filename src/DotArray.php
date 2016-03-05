@@ -2,7 +2,7 @@
 namespace nochso\Omni;
 
 /**
- * DotArray for easy access to multi-dimensional arrays.
+ * DotArray for easy access to multi-dimensional arrays using dot notation.
  */
 final class DotArray
 {
