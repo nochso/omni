@@ -8,7 +8,7 @@ use Patchwork\Utf8;
  */
 final class Strings
 {
-    const CONTROL_CHAR_MAP = [
+    private static $controlCharMap = [
         "\n" => '\n',
         "\r" => '\r',
         "\t" => '\t',
@@ -79,11 +79,10 @@ final class Strings
      */
     public static function escapeControlChars($input)
     {
-        $charMap = self::CONTROL_CHAR_MAP;
-        $escaper = function ($chars) use ($charMap) {
+        $escaper = function ($chars) {
             $char = $chars[0];
-            if (isset($charMap[$char])) {
-                return $charMap[$char];
+            if (isset(self::$controlCharMap[$char])) {
+                return self::$controlCharMap[$char];
             }
             return sprintf('\x%02X', ord($char));
         };
