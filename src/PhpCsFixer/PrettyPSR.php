@@ -42,6 +42,7 @@ class PrettyPSR extends Config
         parent::__construct($name, $description);
         $this->level = FixerInterface::PSR2_LEVEL;
         $this->fixers = $this->getDefaultFixers();
+        $this->setUsingCache(true);
     }
 
     public function getDefaultFixers()

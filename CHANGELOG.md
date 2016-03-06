@@ -16,6 +16,7 @@ Major changes are prefixed with `MAJOR`.
 ### Changed
 - `MAJOR` Renamed class `DotArray` to `Dot`.
     - Keep in mind there's still a `DotArray` which now wraps the static methods of `Dot`.
+- Enable caching by default for `PrettyPSR`.
 
 ### Fixed
 - Fix UTF8 handling of `Multiline::getMaxLength`, `Multiline::pad` and `Strings::getMostFrequentNeedle`
