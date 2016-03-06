@@ -15,9 +15,19 @@ namespace nochso\Omni;
  * echo $da->get('a.b'); // 'c'
  * ```
  *
+ * ArrayAccess is also possible:
+ * ```php
+ * $da['a.b'] = 'c';
+ * ```
+ *
+ * You can also escape parts of the path:
+ * ```php
+ * $da['a\.b'] === $da->getArray()['a.b'] // true
+ * ```
+ *
  * @see \nochso\Omni\Dot
  */
-final class DotArray
+final class DotArray implements \ArrayAccess
 {
     private $data;
 
@@ -101,5 +111,65 @@ final class DotArray
     public function remove($path)
     {
         Dot::remove($this->data, $path);
+    }
+
+    /**
+     * offsetExists allows using `isset($da['a.b'])`.
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
+     *
+     * @param mixed $offset An offset to check for.
+     *
+     * @return bool true on success or false on failure.
+     */
+    public function offsetExists($offset)
+    {
+        return $this->has($offset);
+    }
+
+    /**
+     * offsetGet allows array access, e.g. `$da['a.b']`.
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     *
+     * @param mixed $offset The offset to retrieve.
+     *
+     * @return mixed Can return all value types.
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * offsetSet allows writing to arrays `$da['a.b'] = 'foo'`.
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetset.php
+     *
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value  The value to set.
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($offset === null) {
+            throw new \InvalidArgumentException(sprintf('Appending to %s is not supported.', self::class));
+        }
+        $this->set($offset, $value);
+    }
+
+    /**
+     * offsetUnset allows using `unset($da['a.b'])`.
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
+     *
+     * @param mixed $offset The offset to unset.
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        $this->remove($offset);
     }
 }

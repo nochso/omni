@@ -139,6 +139,18 @@ class DotArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(['a' => []], $da->getArray());
     }
 
+    public function testRemove_WhenMissing()
+    {
+        $arr = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        $da = new DotArray($arr);
+        $da->remove('a.b.x.y');
+        $this->assertSame($arr, $da->getArray());
+    }
+
     public function testRemove_WhenEmpty()
     {
         $da = new DotArray();
@@ -157,5 +169,75 @@ class DotArrayTest extends \PHPUnit_Framework_TestCase
         $da = new DotArray($arr);
         $da->remove('a');
         $this->assertSame(['x' => 'X'], $da->getArray());
+    }
+
+    public function testOffsetExists()
+    {
+        $da = new DotArray([
+            'a' => [
+                'b' => 'c',
+            ],
+            'x' => 'X',
+        ]);
+        $this->assertTrue(isset($da['a']));
+        $this->assertTrue(isset($da['a.b']));
+        $this->assertTrue(isset($da['x']));
+    }
+
+    public function testOffsetGet()
+    {
+        $da = new DotArray([
+            'a' => [
+                'b' => 'c',
+            ],
+            'x' => 'X',
+        ]);
+        $this->assertSame('c', $da['a.b']);
+        $this->assertNull($da['a.xx']);
+    }
+
+    public function testOffsetSet()
+    {
+        $da = new DotArray();
+        $da['a.b'] = 'c';
+        $expected = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        $this->assertSame($expected, $da->getArray());
+    }
+
+    public function testOffsetSet_EscapeDots()
+    {
+        $da = new DotArray([
+            'a' => [
+                'b' => 'c',
+            ],
+            'a.b' => 'x',
+        ]);
+
+        $da['a.b'] = 'C';
+        $this->assertSame('C', $da->getArray()['a']['b']);
+        $da['a\.b'] = 'X';
+        $this->assertSame('X', $da->getArray()['a.b']);
+    }
+
+    public function testOffsetSet_WhenAppending_MustThrow()
+    {
+        $da = new DotArray();
+        $this->expectException('\InvalidArgumentException');
+        $da[] = 'x';
+    }
+
+    public function testOffsetUnset()
+    {
+        $da = new DotArray([
+            'a' => [
+                'b' => 'c',
+            ],
+        ]);
+        unset($da['a.b']);
+        $this->assertSame(['a' => []], $da->getArray());
     }
 }

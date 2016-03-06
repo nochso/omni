@@ -6,7 +6,7 @@ Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
 ### Added
-- `MAJOR` New class `nochso\Omni\DotArray` to wrap an array replacing the newly named `Dot` class.
+- `MAJOR` New class `nochso\Omni\DotArray` to wrap an array replacing the newly named `Dot` class. Implements `\ArrayAccess`.
 - New methods in `Dot` and `DotArray`:
     - `set`
     - `trySet`
