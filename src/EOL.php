@@ -14,8 +14,8 @@ final class EOL
      */
     private static $eols = [
         "\r\n" => ['CR+LF', 'Windows, TOPS-10, RT-11, CP/M, MP/M, DOS, Atari TOS, OS/2, Symbian OS, Palm OS'],
-        "\n" => ['LF', 'Multics, Unix, Unix-like, BeOS, Amiga, RISC OS'],
-        "\r" => ['CR', 'Commodore 8-bit, BBC Acorn, TRS-80, Apple II, Mac OS <=v9, OS-9'],
+        "\n" => ['LF', 'Unix, Unix-like, Multics, BeOS, Amiga, RISC OS'],
+        "\r" => ['CR', 'Mac OS <=v9, OS-9, Apple II, Commodore 8-bit, BBC Acorn, TRS-80'],
     ];
 
     private $eol;
