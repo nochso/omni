@@ -6,9 +6,12 @@ Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
 ### Added
-- Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
-- New methods `DotArray::set` and `DotArray::trySet`
 - `MAJOR` New class `nochso\Omni\DotArray` to wrap an array replacing the newly named `Dot` class.
+- New methods in `Dot` and `DotArray`:
+    - `set`
+    - `trySet`
+    - `remove`
+- Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 
 ### Changed
 - `MAJOR` Renamed class `DotArray` to `Dot`.

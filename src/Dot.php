@@ -76,6 +76,32 @@ final class Dot
         self::setHelper($array, $path, $value, true);
     }
 
+    /**
+     * Remove an element if it exists.
+     *
+     * @param array  $array
+     * @param string $path
+     */
+    public static function remove(array &$array, $path)
+    {
+        $keys = self::extractKeys($path);
+        $keysWithoutLast = array_slice($keys, 0, -1);
+        $keyCount = count($keysWithoutLast);
+        $lastKey = $keys[$keyCount];
+        $node = &$array;
+
+        // Abort when key is missing earlier than expected
+        for ($i = 0; $i < $keyCount && is_array($node) && isset($node[$keys[$i]]); ++$i) {
+            $node = &$node[$keys[$i]];
+        }
+        if ($i < $keyCount) {
+            return;
+        }
+        if (is_array($node) && isset($node[$lastKey])) {
+            unset($node[$lastKey]);
+        }
+    }
+
     private static function setHelper(array &$array, $path, $value, $strict = true)
     {
         $keys = self::extractKeys($path);

@@ -126,4 +126,36 @@ class DotArrayTest extends \PHPUnit_Framework_TestCase
         $this->expectException('RuntimeException');
         $da->trySet('a.c', 'X');
     }
+
+    public function testRemove()
+    {
+        $arr = [
+            'a' => [
+                'b' => 'c',
+            ],
+        ];
+        $da = new DotArray($arr);
+        $da->remove('a.b');
+        $this->assertSame(['a' => []], $da->getArray());
+    }
+
+    public function testRemove_WhenEmpty()
+    {
+        $da = new DotArray();
+        $da->remove('a');
+        $this->assertSame([], $da->getArray());
+    }
+
+    public function testRemove_TopLevel()
+    {
+        $arr = [
+            'a' => [
+                'b' => 'c',
+            ],
+            'x' => 'X',
+        ];
+        $da = new DotArray($arr);
+        $da->remove('a');
+        $this->assertSame(['x' => 'X'], $da->getArray());
+    }
 }

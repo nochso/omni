@@ -56,6 +56,7 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `has()` returns true if an element exists at the given dot key path.
         - `set()` a value at a certain path by creating missing elements and overwriting non-array values.
         - `trySet()` sets a value at a certain path, expecting arrays or missing elements along the way.
+        - `remove()` an element if it exists.
     - `C` `DotArray` holds a multi-dimensional array and wraps the static API of `\nochso\Omni\Dot`.
         - `__construct()`
         - `getArray()` returns the complete array.
@@ -63,6 +64,7 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `has()` returns true if an element exists at the given dot key path.
         - `set()` a value at a certain path by creating missing elements and overwriting non-array values.
         - `trySet()` sets a value at a certain path, expecting arrays or missing elements along the way.
+        - `remove()` an element if it exists.
     - `C` `EOL`
         - `__construct()`
         - `__toString()`

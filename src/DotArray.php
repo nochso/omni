@@ -92,4 +92,14 @@ final class DotArray
     {
         Dot::trySet($this->data, $path, $value);
     }
+
+    /**
+     * Remove an element if it exists.
+     *
+     * @param string $path
+     */
+    public function remove($path)
+    {
+        Dot::remove($this->data, $path);
+    }
 }
