@@ -65,4 +65,13 @@ class StringsTest extends \PHPUnit_Framework_TestCase
         $needles = ['a', 'b'];
         $this->assertNull(Strings::getMostFrequentNeedle($haystack, $needles));
     }
+
+    public function testEscapeControlChars()
+    {
+        $input = "\n\r\t\v\f\\foo\033\x01";
+        $expected = '\n\r\t\v\f\\\\foo\e\x01';
+        $this->assertNotSame("\033", '\e');
+        $this->assertNotSame("\x01", '\x01');
+        $this->assertSame($expected, Strings::escapeControlChars($input));
+    }
 }

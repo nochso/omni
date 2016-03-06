@@ -8,6 +8,17 @@ use Patchwork\Utf8;
  */
 final class Strings
 {
+    const CONTROL_CHAR_MAP = [
+        "\n" => '\n',
+        "\r" => '\r',
+        "\t" => '\t',
+        "\v" => '\v',
+        "\e" => '\e',
+        "\f" => '\f',
+    ];
+
+    const CONTROL_CHAR_PATTERN = '/[\x00-\x1F\x7F]/';
+
     /**
      * startsWith returns true if the input begins with a prefix.
      *
@@ -55,5 +66,28 @@ final class Strings
             }
         }
         return $maxNeedle;
+    }
+
+    /**
+     * escapeControlChars by replacing line feeds, tabs, etc. to their escaped representation.
+     *
+     * e.g. an actual line feed will return '\n'
+     *
+     * @param string $input
+     *
+     * @return string
+     */
+    public static function escapeControlChars($input)
+    {
+        $charMap = self::CONTROL_CHAR_MAP;
+        $escaper = function ($chars) use ($charMap) {
+            $char = $chars[0];
+            if (isset($charMap[$char])) {
+                return $charMap[$char];
+            }
+            return sprintf('\x%02X', ord($char));
+        };
+        $output = str_replace('\\', '\\\\', $input);
+        return preg_replace_callback(self::CONTROL_CHAR_PATTERN, $escaper, $output);
     }
 }

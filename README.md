@@ -92,6 +92,7 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `startsWith()` returns true if the input begins with a prefix.
         - `endsWith()` returns true if the input ends with a suffix.
         - `getMostFrequentNeedle()` by counting occurences of each needle in haystack.
+        - `escapeControlChars()` by replacing line feeds, tabs, etc. to their escaped representation.
     - `C` `Type` returns PHP type information.
         - `summarize()` the type of any variable.
         - `getClassName()` returns the class name without namespaces.
