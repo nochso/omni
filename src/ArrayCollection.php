@@ -3,6 +3,9 @@ namespace nochso\Omni;
 
 use Traversable;
 
+/**
+ * ArrayCollection wraps an array, providing common collection methods.
+ */
 class ArrayCollection implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     /**

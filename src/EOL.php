@@ -1,10 +1,22 @@
 <?php
 namespace nochso\Omni;
 
+/**
+ * EOL detects, converts and returns information about line-endings.
+ */
 final class EOL
 {
+    /**
+     * Carriage return: Mac OS <=v9, OS-9, Apple II, Commodore 8-bit, BBC Acorn, TRS-80.
+     */
     const EOL_CR = "\r";
+    /**
+     * Line feed: Unix, Unix-like, Multics, BeOS, Amiga, RISC OS.
+     */
     const EOL_LF = "\n";
+    /**
+     * Carriage return/Line feed: Windows, TOPS-10, RT-11, CP/M, MP/M, DOS, Atari TOS, OS/2, Symbian OS, Palm OS.
+     */
     const EOL_CR_LF = "\r\n";
 
     /**
@@ -23,7 +35,7 @@ final class EOL
     private $description;
 
     /**
-     * @param string $eol See the EOL_* class constants.
+     * @param string $eol Line ending. See the EOL_* class constants.
      */
     public function __construct($eol)
     {
@@ -33,12 +45,19 @@ final class EOL
         $this->description = $initEol[1];
     }
 
+    /**
+     * __toString casts to/returns the raw line ending string.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->eol;
     }
 
     /**
+     * getName of line ending, e.g. `LF`.
+     *
      * @return string
      */
     public function getName()
@@ -47,6 +66,8 @@ final class EOL
     }
 
     /**
+     * getDescription of line ending, e.g. `Line feed: Unix, Unix-like, Multics, BeOS, Amiga, RISC OS`.
+     *
      * @return string
      */
     public function getDescription()
