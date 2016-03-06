@@ -5,6 +5,13 @@ use nochso\Omni\EOL;
 
 class EOLTest extends \PHPUnit_Framework_TestCase
 {
+    public function testConstruct_Unknown()
+    {
+        $this->expectException('\DomainException');
+        $this->expectExceptionMessageRegExp('/' . preg_quote('\t') . '/');
+        $eol = new EOL("\t");
+    }
+
     public function testToString()
     {
         $eol = new EOL(EOL::EOL_LF);

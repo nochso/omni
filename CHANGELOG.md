@@ -21,6 +21,7 @@ Major changes are prefixed with `MAJOR`.
 
 ### Fixed
 - Fix UTF8 handling of `Multiline::getMaxLength`, `Multiline::pad` and `Strings::getMostFrequentNeedle`
+- `EOL` will now throw an exception constructed with an unknown line ending.
 
 ## [0.2.0] - 2016-02-28
 ### Added

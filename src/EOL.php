@@ -40,6 +40,9 @@ final class EOL
     public function __construct($eol)
     {
         $this->eol = $eol;
+        if (!isset(self::$eols[$eol])) {
+            throw new \DomainException(sprintf('Unknown line ending: %s', Strings::escapeControlChars($eol)));
+        }
         $initEol = self::$eols[$eol];
         $this->name = $initEol[0];
         $this->description = $initEol[1];
