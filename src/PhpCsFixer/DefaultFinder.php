@@ -75,7 +75,8 @@ class DefaultFinder extends Finder
         }
         $lines = file($ignoreFile);
         if ($lines === false) {
-            return [];
+            // Not sure how to test, so ignore it instead of inlining it above
+            return []; // @codeCoverageIgnore
         }
         return array_map(function ($line) {
             return rtrim($line, "\r\n\\/");
