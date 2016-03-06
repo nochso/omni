@@ -11,7 +11,7 @@ Major changes are prefixed with `MAJOR`.
     - `set`
     - `trySet`
     - `remove`
-- New method `nochso\Omni\Arrays::escapeControlChars`.
+- New method `nochso\Omni\Strings::escapeControlChars`.
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 
 ### Changed
