@@ -13,9 +13,9 @@ final class EOL
      * @var array
      */
     private static $eols = [
-        "\r\n" => ['CR+LF', 'Windows, TOPS-10, RT-11, CP/M, MP/M, DOS, Atari TOS, OS/2, Symbian OS, Palm OS'],
-        "\n" => ['LF', 'Unix, Unix-like, Multics, BeOS, Amiga, RISC OS'],
-        "\r" => ['CR', 'Mac OS <=v9, OS-9, Apple II, Commodore 8-bit, BBC Acorn, TRS-80'],
+        "\r\n" => ['CR+LF', 'Carriage return/line feed: Windows, TOPS-10, RT-11, CP/M, MP/M, DOS, Atari TOS, OS/2, Symbian OS, Palm OS'],
+        "\n" => ['LF', 'Line feed: Unix, Unix-like, Multics, BeOS, Amiga, RISC OS'],
+        "\r" => ['CR', 'Carriage return: Mac OS <=v9, OS-9, Apple II, Commodore 8-bit, BBC Acorn, TRS-80'],
     ];
 
     private $eol;

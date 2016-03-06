@@ -20,7 +20,7 @@ class EOLTest extends \PHPUnit_Framework_TestCase
     public function testGetDescription()
     {
         $eol = new EOL(EOL::EOL_LF);
-        $this->assertSame('Multics, Unix, Unix-like, BeOS, Amiga, RISC OS', $eol->getDescription());
+        $this->assertSame('Line feed: Unix, Unix-like, Multics, BeOS, Amiga, RISC OS', $eol->getDescription());
     }
 
     public function testConvertTo()
