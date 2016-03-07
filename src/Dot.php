@@ -138,9 +138,11 @@ final class Dot
     private static function extractKeys($path)
     {
         $keys = [];
-        $escapedKeys = preg_split('/(?<!\\\\)\./', $path);
-        foreach ($escapedKeys as $key => $value) {
-            $keys[] = str_replace('\.', '.', $value);
+        if (!preg_match_all('/(?:\\\\.|[^\\.\\\\]++)+/', $path, $matches)) {
+            return [$path];
+        }
+        foreach ($matches[0] as $match) {
+            $keys[] = str_replace(['\.', '\\\\'], ['.', '\\'], $match);
         }
         return $keys;
     }
