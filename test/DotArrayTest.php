@@ -240,4 +240,98 @@ class DotArrayTest extends \PHPUnit_Framework_TestCase
         unset($da['a.b']);
         $this->assertSame(['a' => []], $da->getArray());
     }
+
+    public function testFlatten()
+    {
+        $arr = [
+            'a' => [
+                'b' => 'c',
+                'd' => 'e',
+            ],
+        ];
+        $da = new DotArray($arr);
+
+        $expected = [
+            'a.b' => 'c',
+            'a.d' => 'e',
+        ];
+        $flat = $da->flatten();
+        $this->assertSame($expected, $flat);
+        $this->assertFlatArrayMatchesDeepArray($flat, $da);
+    }
+
+    public function testFlatten_EscapeDots()
+    {
+        $arr = [
+            'a.b.' => [
+                'c.d' => 'e',
+            ],
+        ];
+        $da = new DotArray($arr);
+        $flat = $da->flatten();
+        $expected = [
+            'a\.b\..c\.d' => 'e',
+        ];
+        $this->assertSame($expected, $flat);
+        $this->assertFlatArrayMatchesDeepArray($flat, $da);
+    }
+
+    public function testFlatten_EscapeSlashes()
+    {
+        $arr = [
+            'a.b\.' => [
+                'c.d' => 'e',
+            ],
+        ];
+        $da = new DotArray($arr);
+        $flat = $da->flatten();
+        $expected = [
+            'a\.b\\\\\\..c\.d' => 'e',
+        ];
+        $this->assertSame($expected, $flat);
+        $this->assertFlatArrayMatchesDeepArray($flat, $da);
+    }
+
+    public function testFlatten_EscapeAllTheThings()
+    {
+        $arr = [
+            '..\\' => [
+                '\\\"".\..\\.' => [
+                    'x',
+                ],
+            ],
+        ];
+        $da = new DotArray($arr);
+        $flat = $da->flatten();
+        $this->assertFlatArrayMatchesDeepArray($flat, $da);
+    }
+
+    public function testFlatten_EscapeTrailingSlash()
+    {
+        $arr = [
+            'a.b\\' => [
+                'c.d' => 'e',
+            ],
+        ];
+        $da = new DotArray($arr);
+        $flat = $da->flatten();
+        $expected = [
+            'a\.b\\\\.c\.d' => 'e',
+        ];
+        $this->assertSame($expected, $flat);
+        $this->assertFlatArrayMatchesDeepArray($flat, $da);
+    }
+
+    public function testFlatten_Empty()
+    {
+        $da = new DotArray();
+        $this->assertCount(0, $da->flatten());
+    }
+
+    private function assertFlatArrayMatchesDeepArray($flat, DotArray $dotArray)
+    {
+        foreach ($flat as $key => $value) {
+            $this->assertSame($value, $dotArray->get($key));
+        }
+    }
 }

@@ -114,6 +114,18 @@ final class DotArray implements \ArrayAccess
     }
 
     /**
+     * Flatten the array into a single dimension array with escaped dot paths as keys.
+     *
+     * Dots within specific keys are escaped.
+     *
+     * @return array
+     */
+    public function flatten()
+    {
+        return Dot::flatten($this->data);
+    }
+
+    /**
      * offsetExists allows using `isset($da['a.b'])`.
      *
      * @link  http://php.net/manual/en/arrayaccess.offsetexists.php

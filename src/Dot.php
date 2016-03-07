@@ -102,6 +102,45 @@ final class Dot
         }
     }
 
+    /**
+     * Flatten the array into a single dimension array with dot paths as keys.
+     *
+     * @param array       $array
+     * @param null|string $parent
+     *
+     * @return array
+     */
+    public static function flatten(array $array, $parent = null)
+    {
+        $flat = [];
+        foreach ($array as $key => $value) {
+            $keypath = self::escapeKey($key);
+            if ($parent !== null) {
+                $keypath = $parent . '.' . $keypath;
+            }
+            if (is_array($value)) {
+                $flat = array_merge(self::flatten($value, $keypath), $flat);
+            } else {
+                $flat[$keypath] = $value;
+            }
+        }
+        return $flat;
+    }
+
+    /**
+     * escapeKey escapes an individual part of a key.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    private static function escapeKey($key)
+    {
+        $re = '/([\\.\\\\])/';
+        $subst = '\\\$1';
+        return preg_replace($re, $subst, $key);
+    }
+
     private static function setHelper(array &$array, $path, $value, $strict = true)
     {
         $keys = self::extractKeys($path);

@@ -11,6 +11,7 @@ Major changes are prefixed with `MAJOR`.
     - `set`
     - `trySet`
     - `remove`
+    - `flatten()` the array into a single dimension array with escaped dot paths as keys.
 - New method `nochso\Omni\Strings::escapeControlChars`.
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 
