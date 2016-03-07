@@ -9,7 +9,8 @@
 nochso/omni helps with every day nuisances like path or EOL handling.
 
 - Fully tested.
-- Clean code with low complexity.
+- Strictly follows [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
+- Clean code with [low complexity](https://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf).
 - No dependencies other than [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 - Not a framework.
 - Not another object-based wrapper around the standard PHP library.
