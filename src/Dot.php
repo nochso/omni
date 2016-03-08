@@ -141,6 +141,23 @@ final class Dot
         return preg_replace($re, $subst, $key);
     }
 
+    /**
+     * @param string $path
+     *
+     * @return array
+     */
+    private static function extractKeys($path)
+    {
+        $keys = [];
+        if (!preg_match_all('/(?:\\\\.|[^\\.\\\\]++)+/', $path, $matches)) {
+            return [$path];
+        }
+        foreach ($matches[0] as $match) {
+            $keys[] = str_replace(['\.', '\\\\'], ['.', '\\'], $match);
+        }
+        return $keys;
+    }
+
     private static function setHelper(array &$array, $path, $value, $strict = true)
     {
         $keys = self::extractKeys($path);
@@ -167,22 +184,5 @@ final class Dot
                 gettype($node[$key])
             ));
         }
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return array
-     */
-    private static function extractKeys($path)
-    {
-        $keys = [];
-        if (!preg_match_all('/(?:\\\\.|[^\\.\\\\]++)+/', $path, $matches)) {
-            return [$path];
-        }
-        foreach ($matches[0] as $match) {
-            $keys[] = str_replace(['\.', '\\\\'], ['.', '\\'], $match);
-        }
-        return $keys;
     }
 }
