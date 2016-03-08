@@ -35,7 +35,7 @@ You can now use the namespace `\nochso\Omni`.
 This is a summary of namespaces, classes, interfaces, traits and their public/protected methods.
 
 - `N` `nochso\Omni`
-    - `C` `ArrayCollection`
+    - `C` `ArrayCollection` wraps an array, providing common collection methods.
         - `__construct()`
         - `add()`
         - `set()` or replace the element at a specific index.
@@ -58,6 +58,7 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `set()` a value at a certain path by creating missing elements and overwriting non-array values.
         - `trySet()` sets a value at a certain path, expecting arrays or missing elements along the way.
         - `remove()` an element if it exists.
+        - `flatten()` the array into a single dimension array with dot paths as keys.
     - `C` `DotArray` holds a multi-dimensional array and wraps the static API of `\nochso\Omni\Dot`.
         - `__construct()`
         - `getArray()` returns the complete array.
@@ -66,11 +67,17 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `set()` a value at a certain path by creating missing elements and overwriting non-array values.
         - `trySet()` sets a value at a certain path, expecting arrays or missing elements along the way.
         - `remove()` an element if it exists.
-    - `C` `EOL`
+        - `flatten()` the array into a single dimension array with escaped dot paths as keys.
+        - `getIterator()` allows you to iterate over a flattened array using `foreach`.
+        - `offsetExists()` allows using `isset($da['a.b'])`.
+        - `offsetGet()` allows array access, e.g. `$da['a.b']`.
+        - `offsetSet()` allows writing to arrays `$da['a.b'] = 'foo'`.
+        - `offsetUnset()` allows using `unset($da['a.b'])`.
+    - `C` `EOL` detects, converts and returns information about line-endings.
         - `__construct()`
-        - `__toString()`
-        - `getName()`
-        - `getDescription()`
+        - `__toString()` casts to/returns the raw line ending string.
+        - `getName()` of line ending, e.g. `LF`.
+        - `getDescription()` of line ending, e.g. `Line feed: Unix, Unix-like, Multics, BeOS, Amiga, RISC OS`.
         - `apply()` this EOL style to a string.
         - `detect()` the EOL style of a string and return an EOL representation.
         - `detectDefault()` falls back to a default EOL style on failure.
@@ -89,6 +96,7 @@ This is a summary of namespaces, classes, interfaces, traits and their public/pr
         - `combine()` any amount of strings into a path.
         - `localize()` directory separators for any file path according to current environment.
         - `contains()` returns true if a base path contains a needle.
+        - `isAbsolute()` checks for an absolute UNIX or Windows path.
     - `C` `Strings` class provides methods for string handling missing from default PHP.
         - `startsWith()` returns true if the input begins with a prefix.
         - `endsWith()` returns true if the input ends with a suffix.
