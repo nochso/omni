@@ -54,4 +54,26 @@ class PathTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse(Path::contains(__DIR__, __DIR__ . '/foobar'));
     }
+
+    public function isAbsoluteProvider()
+    {
+        return [
+            [true, '/home/user'],
+            [true, '/home/../user'],
+            [true, 'c:/win'],
+            [true, 'd:\\setup.exe'],
+            [true, '\\\\x\\x', 'UNC should be absolute'],
+            [false, './../user'],
+            [false, './user/foo'],
+            [false, 'user\\setup.exe', 'UNC should be absolute'],
+        ];
+    }
+
+    /**
+     * @dataProvider isAbsoluteProvider
+     */
+    public function testIsAbsolute($expected, $path, $message = '')
+    {
+        $this->assertSame($expected, Path::isAbsolute($path), $message);
+    }
 }

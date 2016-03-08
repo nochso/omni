@@ -64,4 +64,16 @@ final class Path
         }
         return Strings::startsWith($needle, $base);
     }
+
+    /**
+     * isAbsolute checks for an absolute UNIX or Windows path.
+     *
+     * @param string $path
+     *
+     * @return bool True if the path is absolute.
+     */
+    public static function isAbsolute($path)
+    {
+        return preg_match('/^([\\/\\\\]|[a-z]:[\\/\\\\])/', $path) === 1;
+    }
 }
