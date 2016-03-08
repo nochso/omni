@@ -27,7 +27,7 @@ namespace nochso\Omni;
  *
  * @see \nochso\Omni\Dot
  */
-final class DotArray implements \ArrayAccess
+final class DotArray implements \ArrayAccess, \IteratorAggregate
 {
     private $data;
 
@@ -123,6 +123,20 @@ final class DotArray implements \ArrayAccess
     public function flatten()
     {
         return Dot::flatten($this->data);
+    }
+
+    /**
+     * getIterator allows you to iterate over a flattened array using `foreach`.
+     *
+     * Keys are escaped and thus safe to use.
+     *
+     * @link  http://php.net/manual/en/iteratoraggregate.getiterator.php
+     *
+     * @return \Traversable An instance of an object implementing <b>Iterator</b> or <b>Traversable</b>
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->flatten());
     }
 
     /**

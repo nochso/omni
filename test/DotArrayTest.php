@@ -334,4 +334,23 @@ class DotArrayTest extends \PHPUnit_Framework_TestCase
             $this->assertSame($value, $dotArray->get($key));
         }
     }
+
+    public function testIteratorAggregate()
+    {
+        $da = new DotArray([
+            'a' => [
+                'b' => 'c',
+            ],
+            'a.b' => 'x',
+        ]);
+        $expected = [
+            'a.b' => 'c',
+            'a\.b' => 'x',
+        ];
+        $actual = [];
+        foreach ($da as $key => $value) {
+            $actual[$key] = $value;
+        }
+        $this->assertSame($expected, $actual);
+    }
 }

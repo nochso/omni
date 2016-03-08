@@ -12,6 +12,7 @@ Major changes are prefixed with `MAJOR`.
     - `trySet`
     - `remove`
     - `flatten()` the array into a single dimension array with escaped dot paths as keys.
+- Added implementation of `\IteratorAggregate` to `DotArray` to iterate over escaped keys and all values.
 - New method `nochso\Omni\Strings::escapeControlChars`.
 - Dependency on [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
 
