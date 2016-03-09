@@ -4,7 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 Major changes are prefixed with `MAJOR`.
 
-## [0.3.0]
+## [Unreleased]
+
+## [0.3.0] - 2016-03-08
 ### Added
 - `MAJOR` New class `nochso\Omni\DotArray` to wrap an array replacing the newly named `Dot` class. Implements `\ArrayAccess`.
 - New methods in `Dot` and `DotArray`:
