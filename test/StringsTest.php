@@ -78,4 +78,40 @@ class StringsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame("\x01", '\x01');
         $this->assertSame($expected, Strings::escapeControlChars($input));
     }
+
+    /**
+     * @dataProvider padMultibyteProvider
+     */
+    public function testPadMultibyte($expected, $input, $padLength, $padding, $paddingType, $message = '')
+    {
+        $this->assertSame($expected, Strings::padMultibyte($input, $padLength, $padding, $paddingType), $message);
+    }
+
+    public function padMultibyteProvider()
+    {
+        return [
+            ['AÄaö', 'AÄ', 4, 'aö', STR_PAD_RIGHT],
+            ['AÄaöa', 'AÄ', 5, 'aö', STR_PAD_RIGHT],
+            ['aöAÄ', 'AÄ', 4, 'aö', STR_PAD_LEFT],
+            ['aöaAÄ', 'AÄ', 5, 'aö', STR_PAD_LEFT],
+            ['aAÄa', 'AÄ', 4, 'aö', STR_PAD_BOTH, 'Must pad equally'],
+            ['aAÄaö', 'AÄ', 5, 'aö', STR_PAD_BOTH, 'Must prefer trailing padding'],
+            ['aöAÄaö', 'AÄ', 6, 'aö', STR_PAD_BOTH, 'Must pad equally'],
+            ['ÜÖÄ', 'ÜÖÄ', 3, 'È', STR_PAD_LEFT],
+            ['öäöäö', '', 5, 'öä', STR_PAD_BOTH, 'Pad empty input'],
+            ['lööng', 'lööng', 1, 'x', STR_PAD_BOTH, 'Return original already long enough'],
+        ];
+    }
+
+    public function testPad_InvalidPaddingType_MustThrow()
+    {
+        $this->expectException('InvalidArgumentException');
+        Strings::padMultibyte('a', 4, ' ', 'bad');
+    }
+
+    public function testPadMultiByte_EmptyPaddingString_MustThrow()
+    {
+        $this->expectException('InvalidArgumentException');
+        Strings::padMultibyte('föö', 23, '');
+    }
 }
