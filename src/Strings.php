@@ -40,7 +40,7 @@ final class Strings
      */
     public static function endsWith($input, $suffix)
     {
-        return substr($input, -strlen($suffix)) === $suffix;
+        return strlen($suffix) === 0 || substr($input, -strlen($suffix)) === $suffix;
     }
 
     /**

@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
+### Fixed
+- Handle empty strings correctly in `Strings::startsWith`
 
 ## [0.3.1]
 ### Changed
