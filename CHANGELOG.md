@@ -7,6 +7,7 @@ Major changes are prefixed with `MAJOR`.
 ## [Unreleased]
 ### Added
 - New method `Strings::padMultibyte` mirroring the standard `str_pad`.
+- Dependency on [symfony/polyfill-mbstring](https://packagist.org/packages/symfony/polyfill-mbstring).
 
 ### Fixed
 - Handle empty strings correctly in `Strings::startsWith`
