@@ -1,8 +1,6 @@
 <?php
 namespace nochso\Omni;
 
-use Patchwork\Utf8;
-
 /**
  * Multiline string class for working with lines of text.
  */
@@ -128,7 +126,7 @@ final class Multiline extends ArrayCollection
             $length = $this->getMaxLength();
         }
         $padder = function ($line) use ($length, $padding, $paddingType) {
-            return Utf8::str_pad($line, $length, $padding, $paddingType);
+            return Strings::padMultibyte($line, $length, $padding, $paddingType);
         };
         return $this->apply($padder);
     }
