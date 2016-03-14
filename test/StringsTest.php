@@ -28,9 +28,11 @@ class StringsTest extends \PHPUnit_Framework_TestCase
     public function endsWithProvider()
     {
         return [
+            [true, 'foo', ''],
             [true, 'foo', 'o'],
             [true, 'foo', 'oo'],
             [true, 'foo', 'foo'],
+            [false, '', 'foo'],
             [false, 'foo', 'f'],
             [false, 'foo', 'fo'],
             [false, 'foo', 'ooo'],
