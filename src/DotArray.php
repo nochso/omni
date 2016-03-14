@@ -27,7 +27,7 @@ namespace nochso\Omni;
  *
  * @see \nochso\Omni\Dot
  */
-final class DotArray implements \ArrayAccess, \IteratorAggregate
+class DotArray implements \ArrayAccess, \IteratorAggregate
 {
     private $data;
 

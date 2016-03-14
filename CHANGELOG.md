@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
+### Changed
+- Open up `DotArray` for extension by removing `final` modifier
 
 ## [0.3.0] - 2016-03-08
 ### Added
