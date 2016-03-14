@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Major changes are prefixed with `MAJOR`.
 
 ## [Unreleased]
+### Added
+- New method `Strings::padMultibyte` mirroring the standard `str_pad`.
+
 ### Fixed
 - Handle empty strings correctly in `Strings::startsWith`
 

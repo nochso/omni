@@ -87,4 +87,47 @@ final class Strings
         $output = str_replace('\\', '\\\\', $input);
         return preg_replace_callback(self::CONTROL_CHAR_PATTERN, $escaper, $output);
     }
+
+    /**
+     * padMultibyte strings to a certain length with another string.
+     *
+     * @param string $input
+     * @param int    $padLength   If the pad length smaller than the input length, no padding takes place.
+     * @param string $padding     Optional, defaults to a space character. The padding may be truncated if the required
+     *                            number of padding characters can't be evenly divided.
+     * @param int    $paddingType Optional, defaults to STR_PAD_RIGHT. Must be one of STR_PAD_LEFT, STR_PAD_RIGHT or
+     *                            STR_PAD_BOTH.
+     *
+     * @return string The padded string.
+     */
+    public static function padMultibyte($input, $padLength, $padding = ' ', $paddingType = STR_PAD_RIGHT)
+    {
+        if ($paddingType !== STR_PAD_LEFT && $paddingType !== STR_PAD_RIGHT && $paddingType !== STR_PAD_BOTH) {
+            throw new \InvalidArgumentException('Padding type must be one of STR_PAD_LEFT, STR_PAD_RIGHT or STR_PAD_BOTH.');
+        }
+        $paddingLength = mb_strlen($padding);
+        if ($paddingLength === 0) {
+            throw new \InvalidArgumentException('Padding string must not be empty.');
+        }
+        $inputLength = mb_strlen($input);
+        if ($inputLength > $padLength) {
+            return $input;
+        }
+        $freeLength = $padLength - $inputLength;
+        if ($paddingType === STR_PAD_BOTH) {
+            // Original str_pad prefers trailing padding
+            $leftPadLength = $padLength - ceil($freeLength / 2);
+            // Reuse the below left/right implementation
+            return self::padMultibyte(self::padMultibyte($input, $leftPadLength, $padding, STR_PAD_LEFT), $padLength, $padding, STR_PAD_RIGHT);
+        }
+        $foo = str_repeat($padding, $freeLength / $paddingLength);
+        $partialPadLength = $freeLength % $paddingLength;
+        if ($partialPadLength > 0) {
+            $foo .= mb_substr($padding, 0, $partialPadLength);
+        }
+        if ($paddingType === STR_PAD_LEFT) {
+            return $foo . $input;
+        }
+        return $input . $foo;
+    }
 }
