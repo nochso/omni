@@ -11,7 +11,10 @@ Major changes are prefixed with `MAJOR`.
 ### Fixed
 - Handle empty strings correctly in `Strings::startsWith`
 
-## [0.3.1]
+### Removed
+- `patchwork/utf8` was removed as a dependency.
+
+## [0.3.1] - 2016-03-14
 ### Changed
 - Open up `DotArray` for extension by removing `final` modifier
 
