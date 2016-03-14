@@ -1,8 +1,6 @@
 <?php
 namespace nochso\Omni;
 
-use Patchwork\Utf8;
-
 /**
  * Strings class provides methods for string handling missing from default PHP.
  */
@@ -59,7 +57,7 @@ final class Strings
         $maxCount = 0;
         $maxNeedle = null;
         foreach ($needles as $needle) {
-            $newCount = Utf8::substr_count($haystack, $needle);
+            $newCount = mb_substr_count($haystack, $needle);
             if ($newCount > $maxCount) {
                 $maxCount = $newCount;
                 $maxNeedle = $needle;

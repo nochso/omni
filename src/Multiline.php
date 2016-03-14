@@ -59,7 +59,7 @@ final class Multiline extends ArrayCollection
     {
         $length = 0;
         foreach ($this->list as $line) {
-            $length = max($length, Utf8::strlen($line));
+            $length = max($length, mb_strlen($line));
         }
         return $length;
     }
