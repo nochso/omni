@@ -8,9 +8,11 @@ class StringsTest extends \PHPUnit_Framework_TestCase
     public function startsWithProvider()
     {
         return [
+            [true, 'foo', ''],
             [true, 'foo', 'f'],
             [true, 'foo', 'fo'],
             [true, 'foo', 'foo'],
+            [false, '', 'o'],
             [false, 'foo', 'o'],
             [false, 'foo', 'ooo'],
             [false, 'foo', 'fooo'],
