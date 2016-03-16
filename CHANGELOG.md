@@ -20,6 +20,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 
 ### Fixed
 - Handle empty strings correctly in `Strings::startsWith`
+- Fix invalid regular expression in `DefaultFinder`.
 
 ### Removed
 - `patchwork/utf8` was removed as a dependency.

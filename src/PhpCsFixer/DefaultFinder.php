@@ -46,7 +46,7 @@ class DefaultFinder extends Finder
         return [
             '*.php',
             '*.twig',
-            '#*.ya?ml#i',
+            '#.*.ya?ml#i',
             '*.xml',
         ];
     }
