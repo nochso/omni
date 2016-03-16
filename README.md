@@ -12,7 +12,7 @@ nochso/omni helps with every day nuisances like path or EOL handling.
 - Fully tested.
 - Strictly follows [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 - Clean code with [low complexity](https://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf).
-- No dependencies other than [patchwork/utf8](https://packagist.org/packages/patchwork/utf8).
+- No dependencies other than [symfony/polyfill-mbstring](https://packagist.org/packages/symfony/polyfill-mbstring).
 - Not a framework.
 - Not another object-based wrapper around the standard PHP library.
 - One less reason to stumble upon the PHP.net comment section or have a Stackoverflow deja-vu.

@@ -14,12 +14,14 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.3.2] - 2016-03-16
 ### Added
 - New method `Strings::padMultibyte` mirroring the standard `str_pad`.
 - Dependency on [symfony/polyfill-mbstring](https://packagist.org/packages/symfony/polyfill-mbstring).
 
 ### Fixed
-- Handle empty strings correctly in `Strings::startsWith`
+- Handle empty strings correctly in `Strings::startsWith`.
 - Fix invalid regular expression in `DefaultFinder`.
 
 ### Removed
@@ -27,7 +29,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 
 ## [0.3.1] - 2016-03-14
 ### Changed
-- Open up `DotArray` for extension by removing `final` modifier
+- Open up `DotArray` for extension by removing `final` modifier.
 
 ## [0.3.0] - 2016-03-08
 ### Added
@@ -73,7 +75,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.3.1...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.3.2...HEAD
+[0.3.2]: https://github.com/nochso/omni/compare/0.3.1...0.3.2
 [0.3.1]: https://github.com/nochso/omni/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/nochso/omni/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/nochso/omni/compare/0.1.1...0.2.0
