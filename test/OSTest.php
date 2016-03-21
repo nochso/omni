@@ -1,5 +1,4 @@
 <?php
-
 namespace nochso\Omni\Test;
 
 use nochso\Omni\OS;
@@ -20,6 +19,9 @@ class OSTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider isWindowsProvider
+     *
+     * @param bool   $expected
+     * @param string $phpOs
      */
     public function testIsWindows($expected, $phpOs)
     {
