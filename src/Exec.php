@@ -63,7 +63,6 @@ class Exec
     /**
      * getCommand returns the string to be used by `\exec()`.
      *
-     *
      * @param string[] $arguments,...
      *
      * @return string
@@ -79,7 +78,7 @@ class Exec
     }
 
     /**
-     * getLastCommand returns the string last used by a previous call to `run()`
+     * getLastCommand returns the string last used by a previous call to `run()`.
      *
      * @return string|null
      */
