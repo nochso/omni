@@ -130,4 +130,121 @@ final class Strings
         }
         return $input . $foo;
     }
+
+    /**
+     * getCommonPrefix of two strings.
+     *
+     * @param string $first
+     * @param string $second
+     *
+     * @return string All common characters from the beginning of both strings.
+     */
+    public static function getCommonPrefix($first, $second)
+    {
+        if ($first === $second) {
+            return $first;
+        }
+        $length = min(mb_strlen($first), mb_strlen($second));
+        for ($i = 0; $i < $length; $i++) {
+            if ($first[$i] !== $second[$i]) {
+                return mb_substr($first, 0, $i);
+            }
+        }
+        return mb_substr($first, 0, $length);
+    }
+
+    /**
+     * getCommonSuffix of two strings.
+     *
+     * @param string $first
+     * @param string $second
+     *
+     * @return string All common characters from the end of both strings.
+     */
+    public static function getCommonSuffix($first, $second)
+    {
+        $reversedCommon = self::getCommonPrefix(self::reverse($first), self::reverse($second));
+        return self::reverse($reversedCommon);
+    }
+
+    /**
+     * Reverse a string.
+     *
+     * @param string $input
+     *
+     * @return string The reversed string.
+     */
+    public static function reverse($input)
+    {
+        $length = mb_strlen($input);
+        $reversed = '';
+        for ($i = $length - 1; $i !== -1; --$i) {
+            $reversed .= mb_substr($input, $i, 1);
+        }
+        return $reversed;
+    }
+
+    /**
+     * groupCommonPrefix returns an array with a common key and a list of differing suffixes.
+     *
+     * e.g. passing an array `['sameHERE', 'sameTHERE']` would return
+     * ```
+     * 'same' => [
+     *    'HERE',
+     *    'THERE',
+     * ]
+     * ```
+     *
+     * This can be used to group several file paths by a common base.
+     *
+     * @param string[] $strings
+     *
+     * @return string[][]
+     */
+    public static function groupByCommonPrefix($strings)
+    {
+        sort($strings);
+        $common = null;
+        foreach ($strings as $folder) {
+            if ($common === null) {
+                $common = $folder;
+            } else {
+                $common = self::getCommonPrefix($common, $folder);
+            }
+        }
+        $trimmedFolders = [];
+        $commonLength = mb_strlen($common);
+        foreach ($strings as $folder) {
+            $trimmedFolders[$common][] = mb_substr($folder, $commonLength);
+        }
+        return $trimmedFolders;
+    }
+
+    /**
+     * groupCommonPrefix returns an array with a common key and a list of differing suffixes.
+     *
+     * e.g. passing an array `['sameHERE', 'sameTHERE']` would return
+     * ```
+     * 'HERE' => [
+     *    'same',
+     *    'sameT',
+     * ]
+     * ```
+     *
+     * @param string[] $strings
+     *
+     * @return string[][]
+     */
+    public static function groupByCommonSuffix($strings)
+    {
+        foreach ($strings as $key => $string) {
+            $strings[$key] = self::reverse($string);
+        }
+        $reversedGroups = self::groupByCommonPrefix($strings);
+        $groups = [];
+        foreach ($reversedGroups as $revKey => $revStrings) {
+            $groups[self::reverse($revKey)] = array_map([self::class, 'reverse'], $revStrings);
+        }
+        return $groups;
+    }
 }
