@@ -6,30 +6,29 @@ use nochso\Omni\Path;
 
 class FolderTest extends \PHPUnit_Framework_TestCase
 {
-    private static $tmp;
+    /**
+     * @var string Path to be used by all tests in this class
+     */
+    private static $base;
 
     public static function setUpBeforeClass()
     {
-        self::$tmp = Path::combine(sys_get_temp_dir(), 'phpunit-nochso-omni');
+        self::$base = Path::combine(__DIR__, 'temp', 'Folder');
     }
 
-    protected function setUp()
+    public static function tearDownAfterClass()
     {
-        $this->cleanUp();
-    }
-
-    protected function tearDown()
-    {
-        $this->cleanUp();
+        Folder::delete(self::$base);
     }
 
     public function testEnsure()
     {
-        $this->assertFalse(is_dir(self::$tmp));
-        Folder::ensure(self::$tmp);
-        $this->assertTrue(is_dir(self::$tmp));
-        Folder::ensure(self::$tmp);
-        $this->assertTrue(is_dir(self::$tmp));
+        $path = Path::combine(self::$base, 'ensure');
+        $this->assertFalse(is_dir($path));
+        Folder::ensure($path);
+        $this->assertTrue(is_dir($path));
+        Folder::ensure($path);
+        $this->assertTrue(is_dir($path));
     }
 
     /**
@@ -40,10 +39,36 @@ class FolderTest extends \PHPUnit_Framework_TestCase
         Folder::ensure('');
     }
 
-    protected function cleanUp()
+    public function testDeleteContents()
     {
-        if (is_dir(self::$tmp)) {
-            rmdir(self::$tmp);
-        }
+        $base = Path::combine(self::$base, 'deleteContents');
+        Folder::ensure($base);
+
+        $filepath = Path::combine($base, 'foo.txt');
+        touch($filepath);
+        $subfolder = Path::combine($base, 'sub-folder');
+        Folder::ensure($subfolder);
+        Folder::deleteContents($base);
+
+        $this->assertFalse(is_file($filepath));
+        $this->assertFalse(is_dir($subfolder));
+        $this->assertTrue(is_dir($base));
+    }
+
+    public function testDeleteContents_WhenFolderMissing_MustThrow()
+    {
+        $base = Path::combine(self::$base, 'deleteContents_missing');
+        $this->assertFalse(is_dir($base), 'Unable to set up test');
+
+        $this->expectException('RuntimeException');
+        Folder::deleteContents($base);
+    }
+
+    public function testDelete()
+    {
+        $base = Path::combine(self::$base, 'delete');
+        Folder::ensure($base);
+        Folder::delete($base);
+        $this->assertFalse(is_dir($base));
     }
 }
