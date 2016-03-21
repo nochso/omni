@@ -26,6 +26,9 @@ Security   to invite users to upgrade in case of vulnerabilities.
     - `groupByCommonSuffix`
     - `reverse`
 
+### Fixed
+- `Dot::get` and `Dot::has` no longer require passing the array by reference.
+
 ## [0.3.2] - 2016-03-16
 ### Added
 - New method `Strings::padMultibyte` mirroring the standard `str_pad`.

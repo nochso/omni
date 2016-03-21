@@ -15,7 +15,7 @@ final class Dot
      *
      * @return mixed
      */
-    public static function get(array &$array, $path, $default = null)
+    public static function get(array $array, $path, $default = null)
     {
         $getter = function ($arrayCarry, $key) use ($default) {
             if (!is_array($arrayCarry) || !isset($arrayCarry[$key])) {
@@ -35,7 +35,7 @@ final class Dot
      *
      * @return bool
      */
-    public static function has(array &$array, $path)
+    public static function has(array $array, $path)
     {
         $unique = new \stdClass();
         $value = self::get($array, $path, $unique);
