@@ -25,4 +25,23 @@ class OSTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame($expected, OS::isWindows($phpOs));
     }
+
+    public function hasBinaryProvider()
+    {
+        return [
+            [true, 'ping'],
+            [false, 'i definitely should not be available'],
+        ];
+    }
+
+    /**
+     * @dataProvider hasBinaryProvider
+     *
+     * @param bool   $expected
+     * @param string $binaryName
+     */
+    public function testHasBinary($expected, $binaryName)
+    {
+        $this->assertSame($expected, OS::hasBinary($binaryName));
+    }
 }
