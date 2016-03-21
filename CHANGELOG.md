@@ -17,6 +17,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest tag.
 - New class `OS` with methods `isWindows` and `hasBinary`.
+- New class `Exec` to create objects that help manage `\exec()` calls.
 - New `Folder` methods `delete` and `deleteContents`
 - New `Strings` methods:
     - `getCommonPrefix`
