@@ -5,7 +5,7 @@ use nochso\Omni\Exec;
 
 class ExecTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreate_NoPrefix()
+    public function testCreate_AcceptsNoPrefix()
     {
         $runner = Exec::create();
         $this->assertSame(Exec::class, get_class($runner));
@@ -16,6 +16,15 @@ class ExecTest extends \PHPUnit_Framework_TestCase
         $runner = Exec::create();
         $this->assertSame('', $runner->getCommand());
         $this->assertSame("'foo'", $runner->getCommand('foo'));
+    }
+
+    public function testGetLastCommand()
+    {
+        $runner = Exec::create('echo');
+        $this->assertNull($runner->getLastCommand());
+        $runner->run('foo');
+        $lastCommand = $runner->getLastCommand();
+        $this->assertSame($runner->getCommand('foo'), $lastCommand);
     }
 
     public function testRun()
