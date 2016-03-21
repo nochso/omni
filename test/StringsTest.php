@@ -114,4 +114,61 @@ class StringsTest extends \PHPUnit_Framework_TestCase
         $this->expectException('InvalidArgumentException');
         Strings::padMultibyte('föö', 23, '');
     }
+
+    public function testGetCommonPrefix()
+    {
+        $this->assertSame('a', Strings::getCommonPrefix('abc', 'afoo'));
+        $this->assertSame('', Strings::getCommonPrefix('xxx', 'yxx'));
+        $this->assertSame('foo', Strings::getCommonPrefix('foo', 'foo'));
+        $this->assertSame('foo', Strings::getCommonPrefix('foooooo', 'foo'));
+    }
+
+    public function testGetCommonSuffix()
+    {
+        $this->assertSame('o', Strings::getCommonSuffix('foo', 'bao'));
+    }
+
+    public function testReverse()
+    {
+        $this->assertSame('ao', Strings::reverse('oa'));
+        $this->assertSame('aö', Strings::reverse('öa'));
+        $this->assertSame('', Strings::reverse(''));
+    }
+
+    public function groupByCommonPrefixProvider()
+    {
+        return [
+            [
+                ['/root/' => ['bar/baz', 'foo']],
+                [
+                    '/root/foo',
+                    '/root/bar/baz',
+                ],
+            ],
+            [
+                ['' => ['/root/bar/baz', 'x/root/foo']],
+                [
+                    'x/root/foo',
+                    '/root/bar/baz',
+                ],
+            ],
+            [
+                ['/root' => ['', '/foo']],
+                ['/root/foo', '/root'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider groupByCommonPrefixProvider
+     */
+    public function testGroupByCommonPrefix($expected, $input)
+    {
+        $this->assertSame($expected, Strings::groupByCommonPrefix($input));
+    }
+
+    public function testGroupByCommonSuffix()
+    {
+        $this->assertSame(['b' => ['a', 'c']], Strings::groupByCommonSuffix(['ab', 'cb']));
+    }
 }
