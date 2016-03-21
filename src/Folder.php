@@ -22,6 +22,10 @@ final class Folder
         if (@mkdir($path, $mode, true)) {
             return;
         }
-        throw new \RuntimeException('Could not create directory: ' . $path);
+        throw new \RuntimeException(sprintf(
+            "Unable to create folder '%s': %s",
+            $path,
+            error_get_last()['message']
+        ));
     }
 }
