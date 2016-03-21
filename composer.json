@@ -27,6 +27,9 @@
             "nochso\\Omni\\Test\\": "test/"
         }
     },
+    "scripts": {
+        "cs": "php-cs-fixer fix"
+    },
     "suggest": {
         "fabpot/php-cs-fixer": "Automatically fix PHP code style issues. See namespace \\nochso\\Omni\\PhpCsFixer"
     }
