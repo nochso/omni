@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "086a00126a8c3aaa4bdec0b2cd97d6fb",
+    "hash": "c07826d9f93219d4a2f7a622d096101a",
     "content-hash": "a1d59dd9728abde29fbac64a7de376ae",
     "packages": [
         {
@@ -572,16 +572,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.2.11",
+            "version": "5.2.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "94b953a53d92cc6024bcbaab39a73370fd2f267c"
+                "reference": "6f0948bab32270352f97d1913d82a49338dcb0da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/94b953a53d92cc6024bcbaab39a73370fd2f267c",
-                "reference": "94b953a53d92cc6024bcbaab39a73370fd2f267c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6f0948bab32270352f97d1913d82a49338dcb0da",
+                "reference": "6f0948bab32270352f97d1913d82a49338dcb0da",
                 "shasum": ""
             },
             "require": {
@@ -642,7 +642,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-14 06:24:28"
+            "time": "2016-03-15 05:59:58"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
