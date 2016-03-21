@@ -10,6 +10,10 @@ namespace nochso\Omni;
  *
  * Methods `run()`, `create()` and `__invoke()` take any amount of arguments.
  * If you have an array of arguments, unpack it first: `run(...$args)`
+ *
+ * You can use `OS::hasBinary` to check if the command is available before you run it.
+ *
+ * @see \nochso\Omni\OS::hasBinary
  */
 class Exec
 {
