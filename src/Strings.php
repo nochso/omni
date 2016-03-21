@@ -3,6 +3,8 @@ namespace nochso\Omni;
 
 /**
  * Strings class provides methods for string handling missing from default PHP.
+ *
+ * `mb_*` methods are used where sensible, so make sure to pass UTF-8 strings.
  */
 final class Strings
 {

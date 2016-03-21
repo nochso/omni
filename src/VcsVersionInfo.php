@@ -2,7 +2,7 @@
 namespace nochso\Omni;
 
 /**
- * VcsVersionInfo wraps and enriches VersionInfo with the latest tag and repository state.
+ * VcsVersionInfo enriches an internal VersionInfo with the latest tag and current repository state.
  *
  * If the working directory is clean and at an exact tag, only the tag is returned:
  *
@@ -19,6 +19,11 @@ namespace nochso\Omni;
  * If there have been commits since a tag:
  *
  *     0.3.1-14-gf602496-dirty
+ *
+ * Where `14` is the amount of commits since tag `0.3.1`.
+ *
+ * Internally a VersionInfo object is used. Note that this class does not extend from VersionInfo
+ * as it uses different constructor parameters.
  */
 final class VcsVersionInfo
 {
@@ -33,9 +38,9 @@ final class VcsVersionInfo
 
     /**
      * @param string $name            Package or application name.
-     * @param string $fallBackVersion Version to fall back to if no repository info was found.
+     * @param string $fallBackVersion Optional version to fall back on if no repository info was found.
      * @param string $repositoryRoot  Path the VCS repository root (e.g. folder that contains ".git", ".hg", etc.)
-     * @param string $infoFormat      Optional format to use for `getInfo`. Defaults to `self::INFO_FORMAT_DEFAULT`
+     * @param string $infoFormat      Optional format to use for `getInfo`. Defaults to `VersionInfo::INFO_FORMAT_DEFAULT`
      */
     public function __construct($name, $fallBackVersion = null, $repositoryRoot = '."', $infoFormat = VersionInfo::INFO_FORMAT_DEFAULT)
     {
