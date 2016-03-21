@@ -41,6 +41,8 @@ final class VcsVersionInfo
      * @param string $fallBackVersion Optional version to fall back on if no repository info was found.
      * @param string $repositoryRoot  Path the VCS repository root (e.g. folder that contains ".git", ".hg", etc.)
      * @param string $infoFormat      Optional format to use for `getInfo`. Defaults to `VersionInfo::INFO_FORMAT_DEFAULT`
+     *
+     * @throws \RuntimeException When no fallback was given and tag could not be extracted from a VCS repo.
      */
     public function __construct($name, $fallBackVersion = null, $repositoryRoot = '."', $infoFormat = VersionInfo::INFO_FORMAT_DEFAULT)
     {
@@ -48,6 +50,9 @@ final class VcsVersionInfo
         $tag = $this->extractTag();
         if ($tag === null) {
             $tag = $fallBackVersion;
+        }
+        if ($tag === null) {
+            throw new \RuntimeException('Unable to detect version from VCS repository and no fallback version was specified.');
         }
         $this->version = new VersionInfo($name, $tag, $infoFormat);
     }
@@ -91,15 +96,16 @@ final class VcsVersionInfo
     private function readGit()
     {
         $gitDir = Path::combine($this->repositoryRoot, '.git');
-        if (!is_dir($gitDir)) {
+        if (!is_dir($gitDir) || !OS::hasBinary('git')) {
             return null;
         }
-        $describe = $this->execEscaped(
-            'git --git-dir=%s --work-tree=%s describe --tags --always --dirty',
-            $gitDir,
-            $this->repositoryRoot
+        $git = Exec::create(
+            'git',
+            '--git-dir=' . $gitDir,
+            '--work-tree=' . $this->repositoryRoot
         );
-        return Dot::get($describe, 0);
+        $git->run('describe', '--tags', '--always', '--dirty');
+        return Dot::get($git->getOutput(), 0);
     }
 
     /**
@@ -108,29 +114,24 @@ final class VcsVersionInfo
     private function readMercurial()
     {
         $hgDir = Path::combine($this->repositoryRoot, '.hg');
-        if (!is_dir($hgDir)) {
+        if (!is_dir($hgDir) || !OS::hasBinary('hg')) {
             return null;
         }
 
+        $hg = Exec::create('hg', '--repository', $this->repositoryRoot);
         // Removes everything but the tag if distance is zero.
-        $log = $this->execEscaped(
-            'hg --repository %s log -r . -T "{latesttag}{sub(\'^-0-m.*\', \'\', \'-{latesttagdistance}-m{node|short}\')}"',
-            $this->repositoryRoot
-        );
-
-        $tag = Dot::get($log, 0);
+        $hg->run('log', '-r', '.', '--template', '{latesttag}{sub(\'^-0-m.*\', \'\', \'-{latesttagdistance}-m{node|short}\')}');
+        $tag = Dot::get($hg->getOutput(), 0);
         // Actual null if no lines were returned or `hg log` returned actual "null".
         // Either way, need to fall back to the revision id.
-        if ($tag === null || $tag === 'null') {
-            $id = $this->execEscaped('hg --repository %s id -i', $this->repositoryRoot);
-            $tag = Dot::get($id, 0);
+        if ($tag === null || $tag === 'null' || Strings::startsWith($tag, 'null-')) {
+            $hg->run('id', '-i');
+            $tag = Dot::get($hg->getOutput(), 0);
+            // Remove 'dirty' plus from revision id
+            $tag = rtrim($tag, '+');
         }
 
-        // Check if working directory is dirty
-        $summary = $this->execEscaped(
-            'hg --repository %s summary',
-            $this->repositoryRoot
-        );
+        $summary = $hg->run('summary')->getOutput();
         $isDirty = 0 === count(array_filter($summary, function ($line) {
                 return preg_match('/^commit: .*\(clean\)$/', $line) === 1;
             }));
@@ -138,23 +139,5 @@ final class VcsVersionInfo
             $tag .= '-dirty';
         }
         return $tag;
-    }
-
-    /**
-     * execEscaped executes a command with automatically escaped parameters.
-     *
-     * @param string $cmdFormat
-     * @param array ...$params
-     *
-     * @see sprintf()
-     *
-     * @return string[] Only lines with content after trimming are returned.
-     */
-    private function execEscaped($cmdFormat, ...$params)
-    {
-        $quotedParams = array_filter($params, 'escapeshellarg');
-        $cmd = sprintf($cmdFormat, ...$quotedParams);
-        exec($cmd, $out, $ret);
-        return array_filter($out, 'strlen');
     }
 }
