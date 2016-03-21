@@ -25,6 +25,10 @@ class Exec
      * @var int
      */
     private $status;
+    /**
+     * @var string
+     */
+    private $lastCommand;
 
     /**
      * Create a new callable `Exec` object.
@@ -49,7 +53,8 @@ class Exec
      */
     public function run(...$arguments)
     {
-        exec($this->getCommand(...$arguments), $output, $status);
+        $this->lastCommand = $this->getCommand(...$arguments);
+        exec($this->lastCommand, $output, $status);
         $this->output = $output;
         $this->status = $status;
         return $this;
@@ -71,6 +76,16 @@ class Exec
         }
         $commandString = implode(' ', $command);
         return $commandString;
+    }
+
+    /**
+     * getLastCommand returns the string last used by a previous call to `run()`
+     *
+     * @return string|null
+     */
+    public function getLastCommand()
+    {
+        return $this->lastCommand;
     }
 
     /**
