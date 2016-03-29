@@ -55,12 +55,10 @@ class FolderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_dir($base));
     }
 
-    public function testDeleteContents_WhenFolderMissing_MustThrow()
+    public function testDeleteContents_WhenFolderMissing_MustNotThrow()
     {
         $base = Path::combine(self::$base, 'deleteContents_missing');
         $this->assertFalse(is_dir($base), 'Unable to set up test');
-
-        $this->expectException('RuntimeException');
         Folder::deleteContents($base);
     }
 
