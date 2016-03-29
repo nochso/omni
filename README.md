@@ -160,7 +160,7 @@ This is a summary of namespaces, classes, interfaces, traits and public/protecte
 # Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between releases.
 
-## [Unreleased]
+## [0.3.3]
 
 ### Added
 - New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest release tag from Git and Mercurial

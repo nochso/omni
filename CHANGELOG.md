@@ -13,7 +13,7 @@ Fixed      for any bug fixes.
 Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
-## [Unreleased]
+## [0.3.3]
 ### Added
 - New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest release tag from Git and Mercurial
   repositories.
@@ -90,7 +90,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.3.2...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.3.3...HEAD
+[0.3.3]: https://github.com/nochso/omni/compare/0.3.2...0.3.3
 [0.3.2]: https://github.com/nochso/omni/compare/0.3.1...0.3.2
 [0.3.1]: https://github.com/nochso/omni/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/nochso/omni/compare/0.2.0...0.3.0
