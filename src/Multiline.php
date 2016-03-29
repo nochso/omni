@@ -19,7 +19,7 @@ final class Multiline extends ArrayCollection
      *
      * @return \nochso\Omni\Multiline
      */
-    public static function create($input, $defaultEol = EOL::EOL_LF)
+    public static function create($input, $defaultEol = \nochso\Omni\EOL::EOL_LF)
     {
         $eol = EOL::detectDefault($input, $defaultEol);
         $lines = explode($eol, $input);
