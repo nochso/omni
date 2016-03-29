@@ -44,9 +44,9 @@ final class Folder
         self::deleteContents($path);
         if (@rmdir($path) === false) {
             throw new \RuntimeException(sprintf(
-                    "Unable to delete folder '%s': %s",
-                    $path,
-                    error_get_last()['message']
+                "Unable to delete folder '%s': %s",
+                $path,
+                error_get_last()['message']
             ));
         }
     }
