@@ -49,7 +49,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
      */
     public function testGit()
     {
-        if (!OS::hasBinary('git')) {
+        if (!OS::hasBinary('git') || getenv('TRAVIS')) {
             $this->markTestSkipped('git has to be available for this test.');
         }
         $repoDir = Path::combine(self::$base, 'git');
@@ -100,7 +100,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
      */
     public function testMercurial()
     {
-        if (!OS::hasBinary('hg')) {
+        if (!OS::hasBinary('hg') || getenv('TRAVIS')) {
             $this->markTestSkipped('hg (Mercurial) has to be available for this test.');
         }
         $repoDir = Path::combine(self::$base, 'hg');
