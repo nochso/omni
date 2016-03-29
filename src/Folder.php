@@ -34,10 +34,13 @@ final class Folder
      *
      * @param string $path Path of folder to delete
      *
-     * @throws \RuntimeException If the folder does not exist or something could not be deleted.
+     * @throws \RuntimeException Thrown when something could not be deleted.
      */
     public static function delete($path)
     {
+        if (!is_dir($path)) {
+            return;
+        }
         self::deleteContents($path);
         if (@rmdir($path) === false) {
             throw new \RuntimeException(sprintf(
@@ -53,15 +56,12 @@ final class Folder
      *
      * @param string $path Path of folder whose contents will be deleted
      *
-     * @throws \RuntimeException If the folder does not exist or something could not be deleted.
+     * @throws \RuntimeException Thrown when something could not be deleted.
      */
     public static function deleteContents($path)
     {
         if (!is_dir($path)) {
-            throw new \RuntimeException(sprintf(
-                "Unable to delete folder '%s': folder must exist first",
-                $path
-            ));
+            return;
         }
         /** @var \SplFileInfo[] $files */
         $files = new \RecursiveIteratorIterator(
