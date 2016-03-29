@@ -31,6 +31,9 @@ class DotArray implements \ArrayAccess, \IteratorAggregate
 {
     private $data;
 
+    /**
+     * @param array $array Any (nested) array.
+     */
     public function __construct(array $array = [])
     {
         $this->data = $array;

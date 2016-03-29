@@ -37,6 +37,10 @@ class PrettyPSR extends Config
         return $config;
     }
 
+    /**
+     * @param string $name
+     * @param string $description
+     */
     public function __construct($name = self::class, $description = '')
     {
         parent::__construct($name, $description);
@@ -45,6 +49,9 @@ class PrettyPSR extends Config
         $this->setUsingCache(true);
     }
 
+    /**
+     * @return string[]
+     */
     public function getDefaultFixers()
     {
         return [
