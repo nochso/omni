@@ -44,7 +44,7 @@ final class VcsVersionInfo
      *
      * @throws \RuntimeException When no fallback was given and tag could not be extracted from a VCS repo.
      */
-    public function __construct($name, $fallBackVersion = null, $repositoryRoot = '.', $infoFormat = VersionInfo::INFO_FORMAT_DEFAULT)
+    public function __construct($name, $fallBackVersion = null, $repositoryRoot = '.', $infoFormat = VersionInfo::INFO_FORMAT_SHORT)
     {
         $this->repositoryRoot = $repositoryRoot;
         $tag = $this->extractTag();

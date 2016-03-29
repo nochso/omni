@@ -30,7 +30,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
     public function testGetInfoDefault_Fallback()
     {
         $version = new VcsVersionInfo('Name', '0.1.0', '/path/does/not/exist');
-        $this->assertSame('Name v0.1.0', $version->getInfo());
+        $this->assertSame('Name 0.1.0', $version->getInfo());
         $this->assertSame('Name', $version->getName());
         $this->assertSame('0.1.0', $version->getVersion());
     }
