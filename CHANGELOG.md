@@ -15,7 +15,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 
 ## [Unreleased]
 ### Added
-- New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest release tag.
+- New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest release tag from Git and Mercurial
+  repositories.
 - New class `OS` with methods `isWindows` and `hasBinary`.
 - New class `Exec` to create objects that help manage `exec()` calls.
 - New `Folder` methods `delete` and `deleteContents`

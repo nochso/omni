@@ -16,35 +16,33 @@ nochso/omni helps with every day nuisances like path or EOL handling.
 - No dependencies other than [symfony/polyfill-mbstring](https://packagist.org/packages/symfony/polyfill-mbstring).
 - Not a framework.
 - Not another object-based wrapper around the standard PHP library.
-- One less reason to stumble upon the PHP.net comment section or have a Stackoverflow deja-vu.
+- One less reason to stumble upon the PHP.net comment section or have a Stackoverflow [deja-vu](https://i.imgur.com/SZPjHwz.jpg).
 
 Table of contents:
-- [nochso/omni](#package)
-    - [Requirements](#requirements)
-        - [Optional requirements](#optional-requirements)
-    - [Installation](#installation)
-    - [API](#api)
-    - [Change log](#change-log)
-    - [Contributing](#contributing)
-    - [License](#license)
+- [nochso/omni](#nochsoomni)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [API summary](#api-summary)
+- [Change log](#change-log)
+- [Contributing](#contributing)
+- [License](#license)
 
-
-## Requirements
+# Requirements
 PHP 5.6.0, 7.0 or higher.
 
 Installation and autoloading via Composer is recommended. You're free to use any other **PSR-4** compatible autoloader on folder `src/`.
 
-### Optional requirements
+## Optional requirements
 [`fabpot/php-cs-fixer`](https://packagist.org/packages/fabpot/php-cs-fixer) is required by namespace `nochso\Omni\PhpCsfixer`.
 
-## Installation
+# Installation
 ```php
 composer require nochso/omni
 ```
 
 You can now use the namespace `\nochso\Omni`.
 
-## API
+# API summary
 This is a summary of namespaces, classes, interfaces, traits and public/protected methods.
 
 - `N` `nochso\Omni`
@@ -98,6 +96,7 @@ This is a summary of namespaces, classes, interfaces, traits and public/protecte
         - `create` a new callable `Exec` object.
         - `run` a command with auto-escaped arguments.
         - `getCommand` returns the string to be used by `\exec()`.
+        - `getLastCommand` returns the string last used by a previous call to `run()`.
         - `getOutput` of last execution.
         - `getStatus` code of last execution.
         - `__invoke` allows using this object as a callable by calling `run()`.
@@ -158,13 +157,51 @@ This is a summary of namespaces, classes, interfaces, traits and public/protecte
         - `getDefaultFixers`
 
 
-## Change log
+# Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between releases.
 
-## Contributing
+## [Unreleased]
+
+### Added
+- New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest release tag from Git and Mercurial
+  repositories.
+- New class `OS` with methods `isWindows` and `hasBinary`.
+- New class `Exec` to create objects that help manage `exec()` calls.
+- New `Folder` methods `delete` and `deleteContents`
+- New `Strings` methods:
+    - `getCommonPrefix`
+    - `getCommonSuffix`
+    - `groupByCommonPrefix`
+    - `groupByCommonSuffix`
+    - `reverse`
+
+
+### Fixed
+- `Dot::get` and `Dot::has` no longer require passing the array by reference.
+
+
+## [0.3.2] - 2016-03-16
+
+### Added
+- New method `Strings::padMultibyte` mirroring the standard `str_pad`.
+- Dependency on [symfony/polyfill-mbstring](https://packagist.org/packages/symfony/polyfill-mbstring).
+
+
+### Fixed
+- Handle empty strings correctly in `Strings::startsWith`.
+- Fix invalid regular expression in `DefaultFinder`.
+
+
+### Removed
+- `patchwork/utf8` was removed as a dependency.
+
+
+
+
+# Contributing
 Feedback, bug reports and pull requests are always welcome.
 
-When writing code, please follow the **PSR2** coding style and **PSR4** autoloading standards.
+Please read the [contributing guide](CONTRIBUTING.md) for instructions.
 
-## License
+# License
 This project is released under the MIT license. See [LICENSE.md](LICENSE.md) for the full text.
