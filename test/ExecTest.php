@@ -109,11 +109,4 @@ class ExecTest extends \PHPUnit_Framework_TestCase
         $runner = Exec::create('echo');
         $this->assertSame(['test'], $runner('test')->getOutput());
     }
-
-    public function testAllArgumentsAreEscaped()
-    {
-        $runner = Exec::create('escape me"!');
-        $cmd = $runner->getCommand("needs more escaping' '\"");
-        $this->assertSame("'escape me\"!' 'needs more escaping'\\'' '\\''\"'", $cmd);
-    }
 }
