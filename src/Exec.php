@@ -75,7 +75,12 @@ class Exec
     {
         $command = [];
         foreach (array_merge($this->prefixes, $arguments) as $argument) {
-            $command[] = escapeshellarg($argument);
+            $escapedArgument = escapeshellarg($argument);
+            // If nothing was escaped and there are no spaces, use the original argument
+            if (mb_substr($escapedArgument, 1, -1) === $argument && strpos($argument, ' ') === false) {
+                $escapedArgument = $argument;
+            }
+            $command[] = $escapedArgument;
         }
         $commandString = implode(' ', $command);
         return $commandString;
