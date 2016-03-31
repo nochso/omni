@@ -2,6 +2,7 @@
 namespace nochso\Omni\Test;
 
 use nochso\Omni\Exec;
+use nochso\Omni\OS;
 
 class ExecTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,11 +12,43 @@ class ExecTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Exec::class, get_class($runner));
     }
 
-    public function testGetCommand()
+    public function getCommandProvider()
+    {
+        if (OS::isWindows()) {
+            return [
+                ['""', []],
+                ['""', ['']],
+                ['foo', ['foo']],
+                ['foo bar', ['foo', 'bar']],
+                ['foo "bar bar"', ['foo', 'bar bar']],
+                ['foo "bar\\"bar"', ['foo', 'bar"bar']],
+                ['"foo bar.exe"', ['foo bar.exe']],
+                ['foo.exe "test\\\\"', ['foo.exe', 'test\\']],
+                // See https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/
+                ['child.exe argument1 "argument 2" "\some\path with\spaces"', ['child.exe', 'argument1', 'argument 2', '\some\path with\spaces']],
+                ['child.exe argument1 "she said, \"you had me at hello\"" "\some\path with\spaces"', ['child.exe', 'argument1', 'she said, "you had me at hello"', '\some\path with\spaces']],
+                ['child.exe argument1 "argument\"2" argument3 argument4', ['child.exe', 'argument1', 'argument"2', 'argument3', 'argument4']],
+                ['child.exe "\some\directory with\spaces\\\\" argument2', ['child.exe', '\some\directory with\spaces\\', 'argument2']],
+            ];
+        }
+        return [
+            ["''", []],
+            ["''", ['']],
+            ['foo', ['foo']],
+            ['foo bar', ['foo', 'bar']],
+            ["foo 'bar bar'", ['foo', 'bar bar']],
+            ["'foo bar'", ['foo bar']],
+            ["foo 'test\\\\'", ['foo', 'test\\']],
+        ];
+    }
+
+    /**
+     * @dataProvider getCommandProvider
+     */
+    public function testGetCommand($expected, $command)
     {
         $runner = Exec::create();
-        $this->assertSame('', $runner->getCommand());
-        $this->assertSame("'foo'", $runner->getCommand('foo'));
+        $this->assertSame($expected, $runner->getCommand(...$command));
     }
 
     public function testGetLastCommand()
