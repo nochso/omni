@@ -1,13 +1,14 @@
 <?php
 namespace nochso\Omni\Test;
 
+use nochso\Omni\OS;
 use nochso\Omni\Path;
 
 class PathTest extends \PHPUnit_Framework_TestCase
 {
     public function combineProvider()
     {
-        return [
+        $tests = [
             ['', ['', '']],
             ['/', ['', '/']],
             ['/', ['/', '']],
@@ -22,6 +23,12 @@ class PathTest extends \PHPUnit_Framework_TestCase
             ['1/2/3', [['1/2/', '/3']], 'Multiple slashes should be simplified'],
             ['./1/2/3/', [['.//1//2//', '3//']], 'Multiple slashes should be simplified'],
         ];
+        if (OS::isWindows()) {
+            foreach ($tests as &$test) {
+                $test[0] = str_replace('/', '\\', $test[0]);
+            }
+        }
+        return $tests;
     }
 
     /**
@@ -34,7 +41,17 @@ class PathTest extends \PHPUnit_Framework_TestCase
 
     public function testLocalize()
     {
-        $this->assertSame('a/b', Path::localize('a\\b'));
+        if (OS::isWindows()) {
+            $this->assertSame('a\\b', Path::localize('a/b'));
+            $this->assertSame('a\\b', Path::localize('a\\b'));
+        } else {
+            $this->assertSame('a/b', Path::localize('a\\b'));
+            $this->assertSame('a/b', Path::localize('a/b'));
+        }
+    }
+
+    public function testLocalizeOverrideSeparator()
+    {
         $this->assertSame('a/b', Path::localize('a\\b', '/'));
         $this->assertSame('a\\b', Path::localize('a/b', '\\'));
         $this->assertSame('a\\b', Path::localize('a\\b', '\\'));
@@ -65,7 +82,7 @@ class PathTest extends \PHPUnit_Framework_TestCase
             [true, '\\\\x\\x', 'UNC should be absolute'],
             [false, './../user'],
             [false, './user/foo'],
-            [false, 'user\\setup.exe', 'UNC should be absolute'],
+            [false, 'user\\setup.exe'],
         ];
     }
 
