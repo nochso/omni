@@ -54,6 +54,8 @@ final class Folder
     /**
      * deleteContents of a folder recursively, but not the folder itself.
      *
+     * On Windows systems this will try to remove the read-only attribute if needed.
+     *
      * @param string $path Path of folder whose contents will be deleted
      *
      * @throws \RuntimeException Thrown when something could not be deleted.
@@ -79,6 +81,12 @@ final class Folder
                     ));
                 }
             } elseif (@unlink($fileInfo->getRealPath()) === false) {
+                if (OS::isWindows()) {
+                    Exec::create('attrib', '-R', $fileInfo->getRealPath())->run();
+                    if (@unlink($fileInfo->getRealPath())) {
+                        continue;
+                    }
+                }
                 throw new \RuntimeException(sprintf(
                     "Unable to delete file '%s' in folder '%s': %s",
                     $fileInfo->getRealPath(),
