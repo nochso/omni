@@ -38,7 +38,10 @@ class ExecTest extends \PHPUnit_Framework_TestCase
             ['foo bar', ['foo', 'bar']],
             ["foo 'bar bar'", ['foo', 'bar bar']],
             ["'foo bar'", ['foo bar']],
-            ["foo 'test\\\\'", ['foo', 'test\\']],
+            ["foo 'test\\'", ['foo', 'test\\']],
+            ['foo -x bar', ['foo', '-x', 'bar']],
+            ['foo --bar x', ['foo', '--bar', 'x']],
+            ["foo '--' x", ['foo', '--', 'x']],
         ];
     }
 
