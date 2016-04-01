@@ -187,7 +187,7 @@ final class Strings
     }
 
     /**
-     * groupCommonPrefix returns an array with a common key and a list of differing suffixes.
+     * groupByCommonPrefix returns an array with a common key and a list of differing suffixes.
      *
      * e.g. passing an array `['sameHERE', 'sameTHERE']` would return
      * ```
@@ -223,7 +223,7 @@ final class Strings
     }
 
     /**
-     * groupCommonPrefix returns an array with a common key and a list of differing suffixes.
+     * groupByCommonSuffix returns an array with a common key and a list of differing suffixes.
      *
      * e.g. passing an array `['sameHERE', 'sameTHERE']` would return
      * ```
