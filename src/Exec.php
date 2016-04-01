@@ -6,14 +6,12 @@ namespace nochso\Omni;
  *
  * The returned object itself is callable, which is the same as calling `run()`.
  *
- * All arguments are escaped using `escapeshellarg()`.
+ * Arguments are automatically escaped if needed.
  *
  * Methods `run()`, `create()` and `__invoke()` take any amount of arguments.
  * If you have an array of arguments, unpack it first: `run(...$args)`
  *
- * You can use `OS::hasBinary` to check if the command is available before you run it.
- *
- * @see \nochso\Omni\OS::hasBinary
+ * @see \nochso\Omni\OS::hasBinary Check if the binary/command is available before you run it.
  */
 class Exec
 {
@@ -150,6 +148,8 @@ class Exec
      * @param string $argument
      *
      * @return string
+     *
+     * @link https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/
      */
     private function escapeLinuxArgument($argument)
     {
