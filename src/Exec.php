@@ -154,8 +154,12 @@ class Exec
     private function escapeLinuxArgument($argument)
     {
         $escapedArgument = escapeshellarg($argument);
-        // If nothing had to be escaped and there are no spaces, use the original argument
-        if (mb_substr($escapedArgument, 1, -1) === $argument && strpos($argument, ' ') === false) {
+        // Is escaping really needed?
+        if (
+            $argument !== '--'                                  // Separator must be escaped
+            && mb_substr($escapedArgument, 1, -1) === $argument // Test if escapeshellarg actually changed anything
+            && preg_match('/^[a-z0-9-]+$/i', $argument) === 1   // Simple arguments don't have to be escaped
+        ) {
             return $argument;
         }
         return $escapedArgument;
