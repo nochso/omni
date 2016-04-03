@@ -148,8 +148,6 @@ class Exec
      * @param string $argument
      *
      * @return string
-     *
-     * @link https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/
      */
     private function escapeLinuxArgument($argument)
     {
@@ -169,6 +167,8 @@ class Exec
      * @param string $argument
      *
      * @return string
+     *
+     * @link https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/
      */
     private function escapeWindowsArgument($argument)
     {
