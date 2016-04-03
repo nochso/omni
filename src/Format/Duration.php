@@ -55,7 +55,7 @@ class Duration
     ];
 
     /**
-     * @var int
+     * @var int|string
      */
     private $format = self::FORMAT_SHORT;
     /**
