@@ -4,10 +4,12 @@ php:
   - hhvm
   - 7.0
 install:
+  - phpenv config-rm xdebug.ini
   - composer update
   - composer require satooshi/php-coveralls
 before_script:
   - mkdir -p build/logs
+  - phpenv config-add xdebug.ini
 script:
   - phpunit --coverage-clover build/logs/clover.xml
 after_success:
