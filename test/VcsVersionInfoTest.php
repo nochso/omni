@@ -111,7 +111,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
         // Set up a new repo with a single committed file
         Exec::create('hg')->run('init', $repoDir);
         // From now on prefix all 'hg' commands with repo and cwd path
-        $hg = Exec::create('hg', '--repository=' . $repoDir, '--cwd', $repoDir);
+        $hg = Exec::create('hg', '--repository', $repoDir, '--cwd', $repoDir);
         $fooPath = Path::combine($repoDir, 'foo.txt');
         touch($fooPath);
         $hg->run('add', $fooPath);
