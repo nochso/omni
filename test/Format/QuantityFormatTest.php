@@ -1,7 +1,7 @@
 <?php
 namespace nochso\Omni\Test\Format;
 
-use nochso\Omni\Format\QuantityFormat;
+use nochso\Omni\Format\Quantity;
 
 class QuantityFormatTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,6 +29,6 @@ class QuantityFormatTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormat($expected, $format, $quantity)
     {
-        $this->assertSame($expected, QuantityFormat::format($format, $quantity));
+        $this->assertSame($expected, Quantity::format($format, $quantity));
     }
 }

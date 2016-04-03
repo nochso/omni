@@ -5,7 +5,7 @@ use nochso\Omni\Dot;
 use nochso\Omni\Numeric;
 
 /**
- * QuantityFormat formats a string depending on quantity (many, one or zero).
+ * Quantity formats a string depending on quantity (many, one or zero).
  * 
  * The plural, singular and empty formats of the string can be defined like this:
  *
@@ -14,26 +14,26 @@ use nochso\Omni\Numeric;
  * The singular and zero formats are optional:
  * 
  * ```php
- * QuantityFormat::format('day(s)', 1); // day
- * QuantityFormat::format('day(s)', 0); // days
+ * Quantity::format('day(s)', 1); // day
+ * Quantity::format('day(s)', 0); // days
  * ```
  *
  * If the `zero` format is not defined, the plural form will be used instead.
  * Alternatively you can use an empty string:
  * 
  * ```php
- * QuantityFormat::format('(many|one|)', 0); // empty string
+ * Quantity::format('(many|one|)', 0); // empty string
  * ```
  * 
  * Example with all three formats:
  * 
  * ```php
- * QuantityFormat::format('(bugs|bug|no bugs at all)', 5) // bugs
- * QuantityFormat::format('(bugs|bug|no bugs at all)', 1) // bug
- * QuantityFormat::format('(bugs|bug|no bugs at all)', 0) // no bugs at all
+ * Quantity::format('(bugs|bug|no bugs at all)', 5) // bugs
+ * Quantity::format('(bugs|bug|no bugs at all)', 1) // bug
+ * Quantity::format('(bugs|bug|no bugs at all)', 0) // no bugs at all
  * ```
  */
-class QuantityFormat
+class Quantity
 {
     /**
      * Format a string depending on a quantity.

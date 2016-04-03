@@ -4,17 +4,17 @@ namespace nochso\Omni\Format;
 use nochso\Omni\Numeric;
 
 /**
- * DurationFormat formats seconds or DateInterval objects as human readable strings.
+ * Duration formats seconds or DateInterval objects as human readable strings.
  *
  * e.g.
  *
  * ```php
- * $df = DurationFormat::create();
+ * $df = Duration::create();
  * $df->format(119);                        // '1m 59s'
  * $df->format(new \DateInterval('P1Y5D')); // '1y 5d'
  * ```
  */
-class DurationFormat
+class Duration
 {
     const SECOND = 1;
     const MINUTE = 60;
@@ -77,11 +77,11 @@ class DurationFormat
     }
 
     /**
-     * Create a new DurationFormat.
+     * Create a new Duration.
      *
      * @param int $format
      *
-     * @return \nochso\Omni\DurationFormat
+     * @return \nochso\Omni\Duration
      */
     public static function create($format = self::FORMAT_SHORT)
     {
@@ -94,14 +94,14 @@ class DurationFormat
      * e.g.
      *
      * ```php
-     * $format = DurationFormat::FORMAT_LONG => [
-     *     DurationFormat::YEAR => ' year(s)',
-     *     DurationFormat::MONTH => ' month(s)',
-     *     DurationFormat::WEEK => ' week(s)',
-     *     DurationFormat::DAY => ' day(s)',
-     *     DurationFormat::HOUR => ' hour(s)',
-     *     DurationFormat::MINUTE => ' minute(s)',
-     *     DurationFormat::SECOND => ' second(s)',
+     * $format = Duration::FORMAT_LONG => [
+     *     Duration::YEAR => ' year(s)',
+     *     Duration::MONTH => ' month(s)',
+     *     Duration::WEEK => ' week(s)',
+     *     Duration::DAY => ' day(s)',
+     *     Duration::HOUR => ' hour(s)',
+     *     Duration::MINUTE => ' minute(s)',
+     *     Duration::SECOND => ' second(s)',
      * ];
      * $df->addFormat('my custom period format', $format);
      * ```
@@ -119,9 +119,9 @@ class DurationFormat
     }
 
     /**
-     * setFormat to use by its custom name or one of the default DurationFormat constants.
+     * setFormat to use by its custom name or one of the default Duration constants.
      *
-     * @param string $name One of the `DurationFormat::FORMAT_*` constants or a name of a format added via `addFormat()`
+     * @param string $name One of the `Duration::FORMAT_*` constants or a name of a format added via `addFormat()`
      *
      * @return $this
      */
@@ -175,14 +175,14 @@ class DurationFormat
             if ($seconds >= $minValue) {
                 $stepValue = floor($seconds / $minValue);
                 if ($stepValue > 0) {
-                    $suffix = QuantityFormat::format($suffix, $stepValue);
+                    $suffix = Quantity::format($suffix, $stepValue);
                     $parts[] = $stepValue . $suffix;
                     $seconds -= $stepValue * $minValue;
                 }
             }
         }
         if (count($parts) === 0) {
-            $parts[] = $seconds . QuantityFormat::format($steps[self::SECOND], $seconds);
+            $parts[] = $seconds . Quantity::format($steps[self::SECOND], $seconds);
         }
         if ($this->limit > 0) {
             $parts = array_slice($parts, 0, $this->limit);

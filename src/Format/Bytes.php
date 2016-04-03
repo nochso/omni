@@ -4,17 +4,17 @@ namespace nochso\Omni\Format;
 use nochso\Omni\Numeric;
 
 /**
- * ByteFormat formats a quantity of bytes using different suffixes and binary or decimal base.
+ * Bytes formats a quantity of bytes using different suffixes and binary or decimal base.
  *
  * By default a binary base and IEC suffixes are used:
  *
  * ```php
- * ByteFormat::create()->format(1100); // '1.07 KiB'
+ * Bytes::create()->format(1100); // '1.07 KiB'
  * ```
  *
  * You can pick a base and suffix with `create()` or use the specifc setter methods.
  */
-class ByteFormat
+class Bytes
 {
     /**
      * 1024 binary base.
@@ -71,14 +71,14 @@ class ByteFormat
     private $precisionTrimming = true;
 
     /**
-     * Create a new ByteFormat instance.
+     * Create a new Bytes instance.
      *
-     * @param int $base   The base to use when converting to different units. Must be one of the `ByteFormat::BASE_*`
+     * @param int $base   The base to use when converting to different units. Must be one of the `Bytes::BASE_*`
      *                    constants. Optional, defaults to `BASE_BINARY`.
-     * @param int $suffix The suffix style for units. Must be one of the `ByteFormat::SUFFIX_*` constants. Optional,
+     * @param int $suffix The suffix style for units. Must be one of the `Bytes::SUFFIX_*` constants. Optional,
      *                    defaults to SUFFIX_IEC (KiB, MiB, etc.)
      *
-     * @return \nochso\Omni\ByteFormat
+     * @return \nochso\Omni\Bytes
      */
     public static function create($base = self::BASE_BINARY, $suffix = self::SUFFIX_IEC)
     {
@@ -91,14 +91,14 @@ class ByteFormat
     /**
      * setBase to use when converting to different units.
      *
-     * @param int $base Must be one of the `ByteFormat::BASE_*` constants.
+     * @param int $base Must be one of the `Bytes::BASE_*` constants.
      *
      * @return $this
      */
     public function setBase($base)
     {
         if ($base !== self::BASE_BINARY && $base !== self::BASE_DECIMAL) {
-            throw new \InvalidArgumentException('Unknown base. Use either ByteFormat::BASE_BINARY or ByteFormat::BASE_DECIMAL');
+            throw new \InvalidArgumentException('Unknown base. Use either Bytes::BASE_BINARY or Bytes::BASE_DECIMAL');
         }
         $this->base = $base;
         return $this;
@@ -107,14 +107,14 @@ class ByteFormat
     /**
      * setSuffix style for units.
      *
-     * @param int $suffix Must be one of the `ByteFormat::SUFFIX_*` constants.
+     * @param int $suffix Must be one of the `Bytes::SUFFIX_*` constants.
      *
      * @return $this
      */
     public function setSuffix($suffix)
     {
         if (!isset(self::$suffixes[$suffix])) {
-            throw new \InvalidArgumentException('Unknown suffix. Use one of the ByteFormat::SUFFIX_* constants.');
+            throw new \InvalidArgumentException('Unknown suffix. Use one of the Bytes::SUFFIX_* constants.');
         }
         $this->suffix = $suffix;
         return $this;
@@ -180,7 +180,7 @@ class ByteFormat
         $suffix = self::$suffixes[$this->suffix][$exponent];
         $number = number_format($normBytes, $this->precision, '.', '');
         $number = $this->trimPrecision($number);
-        $suffix = QuantityFormat::format($suffix, $number);
+        $suffix = Quantity::format($suffix, $number);
         return sprintf('%s %s', $number, $suffix);
     }
 

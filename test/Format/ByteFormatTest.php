@@ -1,7 +1,7 @@
 <?php
 namespace nochso\Omni\Test\Format;
 
-use nochso\Omni\Format\ByteFormat;
+use nochso\Omni\Format\Bytes;
 
 class ByteFormatTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,13 +27,13 @@ class ByteFormatTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatDefault($expected, $bytes)
     {
-        $actual = ByteFormat::create()->format($bytes);
+        $actual = Bytes::create()->format($bytes);
         $this->assertSame($expected, $actual);
     }
 
     public function testFormat_SmallFloat_MustThrow()
     {
-        $b = ByteFormat::create();
+        $b = Bytes::create();
         $this->expectException('InvalidArgumentException');
         $b->format(0.1);
     }
@@ -41,17 +41,17 @@ class ByteFormatTest extends \PHPUnit_Framework_TestCase
     public function formatBaseAndSuffixProvider()
     {
         return [
-            ['1023 B', 1023, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_SIMPLE],
-            ['1 K', 1024, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_SIMPLE],
-            ['999 B', 999, ByteFormat::BASE_DECIMAL, ByteFormat::SUFFIX_SIMPLE],
-            ['1 K', 1000, ByteFormat::BASE_DECIMAL, ByteFormat::SUFFIX_SIMPLE],
-            ['1 mebibyte', 1024 * 1024, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_IEC_LONG],
-            ['2 mebibytes', 1024 * 1024 * 2, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_IEC_LONG],
-            ['0 bytes', 0, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_IEC_LONG],
-            ['1 byte', 1, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_IEC_LONG],
-            ['2 bytes', 2, ByteFormat::BASE_BINARY, ByteFormat::SUFFIX_IEC_LONG],
-            ['1 gigabyte', 1000 * 1000 * 1000, ByteFormat::BASE_DECIMAL, ByteFormat::SUFFIX_SI_LONG],
-            ['1.23 gigabytes', 1000 * 1000 * 1234, ByteFormat::BASE_DECIMAL, ByteFormat::SUFFIX_SI_LONG],
+            ['1023 B', 1023, Bytes::BASE_BINARY, Bytes::SUFFIX_SIMPLE],
+            ['1 K', 1024, Bytes::BASE_BINARY, Bytes::SUFFIX_SIMPLE],
+            ['999 B', 999, Bytes::BASE_DECIMAL, Bytes::SUFFIX_SIMPLE],
+            ['1 K', 1000, Bytes::BASE_DECIMAL, Bytes::SUFFIX_SIMPLE],
+            ['1 mebibyte', 1024 * 1024, Bytes::BASE_BINARY, Bytes::SUFFIX_IEC_LONG],
+            ['2 mebibytes', 1024 * 1024 * 2, Bytes::BASE_BINARY, Bytes::SUFFIX_IEC_LONG],
+            ['0 bytes', 0, Bytes::BASE_BINARY, Bytes::SUFFIX_IEC_LONG],
+            ['1 byte', 1, Bytes::BASE_BINARY, Bytes::SUFFIX_IEC_LONG],
+            ['2 bytes', 2, Bytes::BASE_BINARY, Bytes::SUFFIX_IEC_LONG],
+            ['1 gigabyte', 1000 * 1000 * 1000, Bytes::BASE_DECIMAL, Bytes::SUFFIX_SI_LONG],
+            ['1.23 gigabytes', 1000 * 1000 * 1234, Bytes::BASE_DECIMAL, Bytes::SUFFIX_SI_LONG],
         ];
     }
 
@@ -65,19 +65,19 @@ class ByteFormatTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatBaseAndSuffix($expected, $bytes, $base, $suffix)
     {
-        $this->assertSame($expected, ByteFormat::create($base, $suffix)->format($bytes));
+        $this->assertSame($expected, Bytes::create($base, $suffix)->format($bytes));
     }
 
     public function testPrecisionTrimming_EnabledByDefault()
     {
-        $b = ByteFormat::create(ByteFormat::BASE_DECIMAL)->setPrecision(5);
+        $b = Bytes::create(Bytes::BASE_DECIMAL)->setPrecision(5);
         $this->assertSame('1 KiB', $b->format(1000));
         $this->assertSame('1.234 KiB', $b->format(1234));
     }
 
     public function testDisablePrecisionTrimming()
     {
-        $b = ByteFormat::create(ByteFormat::BASE_DECIMAL)->setPrecision(5)->disablePrecisionTrimming();
+        $b = Bytes::create(Bytes::BASE_DECIMAL)->setPrecision(5)->disablePrecisionTrimming();
         $this->assertSame('1.00000 KiB', $b->format(1000));
         $this->assertSame('1.23400 KiB', $b->format(1234));
     }
@@ -85,18 +85,18 @@ class ByteFormatTest extends \PHPUnit_Framework_TestCase
     public function testSetBase_InvalidBase_MustThrow()
     {
         $this->expectException('InvalidArgumentException');
-        $b = ByteFormat::create()->setBase('blorp');
+        $b = Bytes::create()->setBase('blorp');
     }
 
     public function testSetSuffix_InvalidSuffix_MustThrow()
     {
         $this->expectException('InvalidArgumentException');
-        $b = ByteFormat::create()->setSuffix('foo');
+        $b = Bytes::create()->setSuffix('foo');
     }
 
     public function testEnablePrecisionTrimming()
     {
-        $b = ByteFormat::create()->setPrecision(5);
+        $b = Bytes::create()->setPrecision(5);
         $b->disablePrecisionTrimming();
         $this->assertSame('1.00000 KiB', $b->format(1024));
         $b->enablePrecisionTrimming();
