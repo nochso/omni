@@ -115,7 +115,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
         $fooPath = Path::combine($repoDir, 'foo.txt');
         touch($fooPath);
         $hg->run('add', $fooPath);
-        $hg->run('commit', '-m init');
+        $hg->run('commit', '-m init', '-u', 'Unit tester');
 
         $vcs = new VcsVersionInfo('name', null, $repoDir);
         $this->assertRegExp('/^[0-9a-f]+$/', $vcs->getVersion(), 'Version without a tag must be rev hash');
@@ -134,7 +134,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('1.0.0', $vcs->getVersion(), 'Clean version at specific tag');
 
         file_put_contents($fooPath, 'move on to next commit');
-        $hg->run('commit', '-m move-on');
+        $hg->run('commit', '-m move-on', '-u', 'Unit tester');
         $vcs = new VcsVersionInfo('name', null, $repoDir);
         $this->assertRegExp('/^1\.0\.0-1-m[0-9a-f]+$/', $vcs->getVersion(), 'Commit after latest tag');
 
