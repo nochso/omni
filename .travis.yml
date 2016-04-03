@@ -9,7 +9,7 @@ install:
   - composer require satooshi/php-coveralls
 before_script:
   - mkdir -p build/logs
-  - phpenv config-add xdebug.ini
+  - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 script:
   - phpunit --coverage-clover build/logs/clover.xml
 after_success:
