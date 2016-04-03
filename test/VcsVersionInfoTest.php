@@ -124,7 +124,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
         $vcs = new VcsVersionInfo('name', null, $repoDir);
         $this->assertRegExp('/^[0-9a-f]+-dirty$/', $vcs->getVersion(), 'Dirty version without a tag must end in -dirty');
 
-        $hg->run('tag', '1.0.0');
+        $hg->run('tag', '1.0.0', '-u', 'Unit tester');
         $hg->run('update', '1.0.0');
         $vcs = new VcsVersionInfo('name', null, $repoDir);
         $this->assertSame('1.0.0-dirty', $vcs->getVersion(), 'Dirty version with a tag must end in -dirty');
