@@ -49,7 +49,6 @@ class NumericTest extends \PHPUnit_Framework_TestCase
             ['0+1'],
             ['.'],
             [','],
-            ['0x0'],
         ];
     }
 

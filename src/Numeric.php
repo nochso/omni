@@ -32,7 +32,6 @@ class Numeric
      * '0+1'
      * '.'
      * ','
-     * '0x0'
      * ```
      * 
      * @param mixed $value
