@@ -16,6 +16,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ## [Unreleased]
 ### Added
 - New class `Numeric` for safely converting mixed values to int/float.
+- New class `QuantityFormat` for formatting strings depending on a quantity.
 
 ### Changed
 - Make `Exec` only escape arguments when needed.
