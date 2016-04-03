@@ -1,7 +1,7 @@
 <?php
-namespace nochso\Omni\Test;
+namespace nochso\Omni\Test\Format;
 
-use nochso\Omni\ByteFormat;
+use nochso\Omni\Format\ByteFormat;
 
 class ByteFormatTest extends \PHPUnit_Framework_TestCase
 {

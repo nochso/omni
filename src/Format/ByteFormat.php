@@ -1,5 +1,7 @@
 <?php
-namespace nochso\Omni;
+namespace nochso\Omni\Format;
+
+use nochso\Omni\Numeric;
 
 /**
  * ByteFormat formats a quantity of bytes using different suffixes and binary or decimal base.

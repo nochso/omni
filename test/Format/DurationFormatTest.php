@@ -1,7 +1,7 @@
 <?php
-namespace nochso\Omni\Test;
+namespace nochso\Omni\Test\Format;
 
-use nochso\Omni\DurationFormat;
+use nochso\Omni\Format\DurationFormat;
 
 class DurationFormatTest extends \PHPUnit_Framework_TestCase
 {

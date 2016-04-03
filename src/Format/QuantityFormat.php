@@ -1,5 +1,8 @@
 <?php
-namespace nochso\Omni;
+namespace nochso\Omni\Format;
+
+use nochso\Omni\Dot;
+use nochso\Omni\Numeric;
 
 /**
  * QuantityFormat formats a string depending on quantity (many, one or zero).

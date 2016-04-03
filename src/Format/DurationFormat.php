@@ -1,5 +1,7 @@
 <?php
-namespace nochso\Omni;
+namespace nochso\Omni\Format;
+
+use nochso\Omni\Numeric;
 
 /**
  * DurationFormat formats seconds or DateInterval objects as human readable strings.

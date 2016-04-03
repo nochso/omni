@@ -1,7 +1,7 @@
 <?php
-namespace nochso\Omni\Test;
+namespace nochso\Omni\Test\Format;
 
-use nochso\Omni\QuantityFormat;
+use nochso\Omni\Format\QuantityFormat;
 
 class QuantityFormatTest extends \PHPUnit_Framework_TestCase
 {
