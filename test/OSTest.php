@@ -31,7 +31,7 @@ class OSTest extends \PHPUnit_Framework_TestCase
     public function hasBinaryProvider()
     {
         return [
-            [true, 'ping'],
+            [true, 'php'],
             [false, 'i definitely should not be available'],
         ];
     }
@@ -44,9 +44,6 @@ class OSTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasBinary($expected, $binaryName)
     {
-        if (getenv('TRAVIS')) {
-            $this->markTestSkipped();
-        }
         $this->assertSame($expected, OS::hasBinary($binaryName));
     }
 }
