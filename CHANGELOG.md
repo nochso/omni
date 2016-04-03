@@ -13,6 +13,18 @@ Fixed      for any bug fixes.
 Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
+## [Unreleased]
+### Added
+- New class `Numeric` for safely converting mixed values to int/float.
+
+### Changed
+- Make `Exec` only escape arguments when needed.
+
+### Fixed
+- Improved tests to reflect Windows behaviour.
+- Make `Folder` delete read-only files on Windows (for example to delete a `.git` folder)
+- Make `Exec` escape properly on Windows.
+
 ## [0.3.3]
 ### Added
 - New class `VcsVersionInfo` that wraps and enriches `VersionInfo` with the latest release tag from Git and Mercurial
