@@ -88,14 +88,14 @@ class Numeric
     public static function ensureInteger($value)
     {
         $numeric = self::ensure($value);
-        if ((float)(int)$numeric !== (float)$numeric) {
+        if ((float) (int) $numeric !== (float) $numeric) {
             throw new \InvalidArgumentException(sprintf(
             "Could not safely convert value '%s' of type '%s' to integer because of trailing decimal places.",
             $value,
             Type::summarize($value)
         ));
         }
-        return (int)$numeric;
+        return (int) $numeric;
     }
 
     /**
@@ -118,6 +118,6 @@ class Numeric
      */
     public static function ensureFloat($value)
     {
-        return (float)self::ensure($value);
+        return (float) self::ensure($value);
     }
 }

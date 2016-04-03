@@ -35,7 +35,7 @@ final class Multiline extends ArrayCollection
      */
     public function __toString()
     {
-        return implode((string)$this->eol, $this->list);
+        return implode((string) $this->eol, $this->list);
     }
 
     /**

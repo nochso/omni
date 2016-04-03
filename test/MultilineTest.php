@@ -28,7 +28,7 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
     {
         $ml = Multiline::create($input);
         $ml->pad($length, $padding, $paddingType);
-        $this->assertSame($expected, (string)$ml);
+        $this->assertSame($expected, (string) $ml);
     }
 
     public function prefixProvider()
@@ -46,7 +46,7 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
     public function testPrefix($expected, $input, $prefix)
     {
         $ml = Multiline::create($input)->prefix($prefix);
-        $this->assertSame($expected, (string)$ml);
+        $this->assertSame($expected, (string) $ml);
     }
 
     public function testGetLines()
@@ -58,14 +58,14 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
     public function testGetEOL()
     {
         $ml = Multiline::create("a\r\nb");
-        $this->assertSame(EOL::EOL_CR_LF, (string)$ml->getEol());
+        $this->assertSame(EOL::EOL_CR_LF, (string) $ml->getEol());
     }
 
     public function testSetEOL()
     {
         $ml = Multiline::create("a\r\nb");
         $ml->setEol("\n");
-        $this->assertSame("\n", (string)$ml->getEol());
+        $this->assertSame("\n", (string) $ml->getEol());
     }
 
     public function testAppend()

@@ -15,7 +15,7 @@ class EOLTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $eol = new EOL(EOL::EOL_LF);
-        $this->assertSame((string)$eol, EOL::EOL_LF);
+        $this->assertSame((string) $eol, EOL::EOL_LF);
     }
 
     public function testGetName()
@@ -39,12 +39,12 @@ class EOLTest extends \PHPUnit_Framework_TestCase
     public function testDetectLF()
     {
         $eol = EOL::detect("a\nx\nccc");
-        $this->assertSame(EOL::EOL_LF, (string)$eol);
+        $this->assertSame(EOL::EOL_LF, (string) $eol);
     }
 
     public function testDetectCRLF()
     {
-        $this->assertSame(EOL::EOL_CR_LF, (string)EOL::detect("a\r\nx\r\nccc"));
+        $this->assertSame(EOL::EOL_CR_LF, (string) EOL::detect("a\r\nx\r\nccc"));
     }
 
     /**
@@ -57,16 +57,16 @@ class EOLTest extends \PHPUnit_Framework_TestCase
 
     public function testDetectDefaultCRLF()
     {
-        $this->assertSame(EOL::EOL_CR_LF, (string)EOL::detectDefault("a\r\nx\r\nccc"));
+        $this->assertSame(EOL::EOL_CR_LF, (string) EOL::detectDefault("a\r\nx\r\nccc"));
     }
 
     public function testDetectDefault_WhenNoEOL_MustNotThrow()
     {
-        $this->assertSame(EOL::EOL_LF, (string)EOL::detectDefault('a'));
+        $this->assertSame(EOL::EOL_LF, (string) EOL::detectDefault('a'));
     }
 
     public function testDetectDefault_WhenNoEOL_UseDefault()
     {
-        $this->assertSame(EOL::EOL_CR_LF, (string)EOL::detectDefault('a', EOL::EOL_CR_LF));
+        $this->assertSame(EOL::EOL_CR_LF, (string) EOL::detectDefault('a', EOL::EOL_CR_LF));
     }
 }
