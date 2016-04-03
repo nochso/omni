@@ -102,7 +102,7 @@ class VcsVersionInfoTest extends \PHPUnit_Framework_TestCase
      */
     public function testMercurial()
     {
-        if (!OS::hasBinary('hg')) {
+        if (!OS::hasBinary('hg') || getenv('TRAVIS')) {
             $this->markTestSkipped('hg (Mercurial) has to be available for this test.');
         }
         $repoDir = Path::combine(self::$base, 'hg');
