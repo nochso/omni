@@ -14,6 +14,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.3.4]
 ### Added
 - New class `Numeric` for safely converting mixed values to int/float.
 - New class `Format\Quantity` for formatting strings depending on a quantity.
@@ -105,7 +107,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.3.3...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.3.4...HEAD
+[0.3.4]: https://github.com/nochso/omni/compare/0.3.3...0.3.4
 [0.3.3]: https://github.com/nochso/omni/compare/0.3.2...0.3.3
 [0.3.2]: https://github.com/nochso/omni/compare/0.3.1...0.3.2
 [0.3.1]: https://github.com/nochso/omni/compare/0.3.0...0.3.1
