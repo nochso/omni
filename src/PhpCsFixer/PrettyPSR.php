@@ -77,6 +77,7 @@ class PrettyPSR extends Config
             'no_empty_lines_after_phpdocs',
             'object_operator',
             'operators_spaces',
+            'spaces_cast',
             'ordered_use',
             'phpdoc_indent',
             'phpdoc_inline_tag',
