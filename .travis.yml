@@ -4,12 +4,12 @@ php:
   - hhvm
   - 7.0
 install:
-  - phpenv config-rm xdebug.ini
+  - phpenv config-rm xdebug.ini; true
   - composer update
   - composer require satooshi/php-coveralls
 before_script:
   - mkdir -p build/logs
-  - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; true
 script:
   - phpunit --coverage-clover build/logs/clover.xml
 after_success:
