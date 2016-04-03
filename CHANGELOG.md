@@ -18,6 +18,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 - New class `Numeric` for safely converting mixed values to int/float.
 - New class `QuantityFormat` for formatting strings depending on a quantity.
 - New class `ByteFormat` for formatting a quantity of bytes using different suffixes and binary or decimal base.
+- New class `DurationFormat` formats seconds or DateInterval objects as human readable strings.
 
 ### Changed
 - Make `Exec` only escape arguments when needed.
