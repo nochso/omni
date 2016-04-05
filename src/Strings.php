@@ -93,10 +93,11 @@ final class Strings
     /**
      * padMultibyte strings to a certain length with another string.
      *
-     * @param string $input
-     * @param int    $padLength   If the pad length smaller than the input length, no padding takes place.
-     * @param string $padding     Optional, defaults to a space character. The padding may be truncated if the required
-     *                            number of padding characters can't be evenly divided.
+     * @param string $input       The input string to be padded.
+     * @param int    $padLength   If the pad is length smaller than the input length, no padding takes place.
+     * @param string $padding     Optional, defaults to a space character. Can be more than one character. The padding
+     *                            may be truncated if the required number of padding characters can't be evenly
+     *                            divided.
      * @param int    $paddingType Optional, defaults to STR_PAD_RIGHT. Must be one of STR_PAD_LEFT, STR_PAD_RIGHT or
      *                            STR_PAD_BOTH.
      *

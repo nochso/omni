@@ -12,10 +12,15 @@ final class Multiline extends ArrayCollection
     private $eol;
 
     /**
-     * Create a new Multiline object using a preferred EOL style.
+     * Create a new Multiline object from a string.
      *
-     * @param string $input
-     * @param string $defaultEol
+     * Use the `EOL::EOL_*` class constants.
+     *
+     * @see \nochso\Omni\EOL
+     *
+     * @param string $input      A string to split into a Multiline object
+     * @param string $defaultEol Default end-of-line type to use if it can not be detected from the input string.
+     *                           Optional, defaults to `EOL::EOL_LF` i.e. "\n"
      *
      * @return \nochso\Omni\Multiline
      */
@@ -65,7 +70,7 @@ final class Multiline extends ArrayCollection
     /**
      * Set EOL used by this Multiline string.
      *
-     * @param \nochso\Omni\EOL|string $eol
+     * @param \nochso\Omni\EOL|string $eol Either an `EOL` object or a string ("\r\n" or "\n")
      *
      * @return $this
      */
@@ -113,8 +118,12 @@ final class Multiline extends ArrayCollection
     /**
      * Pad all lines to the same length using `str_pad`.
      *
-     * @param int    $length
-     * @param string $padding
+     * @param int    $length      If length is larger than the maximum line length, all lines will be padded up to the
+     *                            given length. If length is null, the maximum of all line lengths is used. Optional,
+     *                            defaults to null.
+     * @param string $padding     Optional, defaults to a space character. Can be more than one character. The padding
+     *                            may be truncated if the required number of padding characters can't be evenly
+     *                            divided.
      * @param int    $paddingType Optional argument pad_type can be STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH.
      *                            Defaults to STR_PAD_RIGHT.
      *
