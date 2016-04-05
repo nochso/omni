@@ -75,22 +75,22 @@ final class Folder
                 if (@rmdir($fileInfo->getRealPath()) === false) {
                     throw new \RuntimeException(sprintf(
                         "Unable to delete child folder '%s' in '%s': %s",
-                        $fileInfo->getRealPath(),
-                        $path,
+                        $fileInfo->getFilename(),
+                        $fileInfo->getPathname(),
                         error_get_last()['message']
                     ));
                 }
             } elseif (@unlink($fileInfo->getRealPath()) === false) {
                 if (OS::isWindows()) {
                     Exec::create('attrib', '-R', $fileInfo->getRealPath())->run();
-                    if (@unlink($fileInfo->getRealPath())) {
+                    if (@unlink($fileInfo->getPathname())) {
                         continue;
                     }
                 }
                 throw new \RuntimeException(sprintf(
                     "Unable to delete file '%s' in folder '%s': %s",
-                    $fileInfo->getRealPath(),
-                    $path,
+                    $fileInfo->getFilename(),
+                    $fileInfo->getPathname(),
                     error_get_last()['message']
                 ));
             }
