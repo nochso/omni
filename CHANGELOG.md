@@ -16,6 +16,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ## [Unreleased]
 ### Fixed
 - `Path::combine` and `Path::localize` now keep a `scheme://` untouched.
+- `Multiline::create` now removes left over line feeds.
 
 ## [0.3.4]
 ### Added

@@ -29,6 +29,10 @@ final class Multiline extends ArrayCollection
         $eol = EOL::detectDefault($input, $defaultEol);
         $lines = explode($eol, $input);
         $multiline = new self($lines);
+        // Remove left-over line feeds
+        $multiline->apply(function ($line) {
+            return trim($line, "\r\n");
+        });
         $multiline->setEol($eol);
         return $multiline;
     }
