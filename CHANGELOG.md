@@ -14,6 +14,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.3.5]
 ### Fixed
 - `Path::combine` and `Path::localize` now keep a `scheme://` untouched.
 - `Multiline::create` now removes left over line feeds.
@@ -110,7 +112,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.3.4...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.3.5...HEAD
+[0.3.5]: https://github.com/nochso/omni/compare/0.3.4...0.3.5
 [0.3.4]: https://github.com/nochso/omni/compare/0.3.3...0.3.4
 [0.3.3]: https://github.com/nochso/omni/compare/0.3.2...0.3.3
 [0.3.2]: https://github.com/nochso/omni/compare/0.3.1...0.3.2
