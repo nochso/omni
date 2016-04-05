@@ -84,7 +84,13 @@ final class Path
      */
     public static function isAbsolute($path)
     {
-        return preg_match('/^([\\/\\\\]|[a-z]:[\\/\\\\])/', $path) === 1;
+        $pattern = '@^
+        (                         # Either..
+            [/\\\\]               # absolute start
+        |   [a-z]:[/\\\\]         # or Windows drive path
+        |   [a-z][a-z0-9\.+-]+:// # or URI scheme:// - see http://tools.ietf.org/html/rfc3986#section-3.1
+        )@ix';
+        return preg_match($pattern, $path) === 1;
     }
 
     public function __toString()

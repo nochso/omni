@@ -14,6 +14,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Changed
+- `Path::isAbsolute` recognizes `scheme://` URIs as absolute.
 
 ## [0.3.5]
 ### Fixed
