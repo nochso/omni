@@ -1,6 +1,7 @@
 <?php
 namespace nochso\Omni\PhpCsFixer;
 
+use nochso\Omni\Path;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -16,7 +17,15 @@ class DefaultFinder extends Finder
     public static function createIn($dirs)
     {
         $finder = new self();
+        if (!is_array($dirs)) {
+            $dirs = [$dirs];
+        }
         $finder->in($dirs);
+        $excludes = [];
+        foreach ($finder->getVcsIgnoreFiles($dirs) as $ignore) {
+            $excludes = array_merge($excludes, $finder->readExcludeLines($ignore));
+        }
+        $finder->exclude($excludes);
         return $finder;
     }
 
@@ -24,17 +33,12 @@ class DefaultFinder extends Finder
     {
         parent::__construct();
 
-        $excludes = [];
-        foreach ($this->getVcsIgnoreFiles() as $ignore) {
-            $excludes = array_merge($excludes, $this->readExcludeLines($ignore));
-        }
         foreach ($this->getNames() as $name) {
             $this->name($name);
         }
         $this->files()
             ->ignoreDotFiles(true)
             ->ignoreVCS(true)
-            ->exclude($excludes)
         ;
     }
 
@@ -52,15 +56,24 @@ class DefaultFinder extends Finder
     }
 
     /**
+     * @param array $dirs
+     *
      * @return array
      */
-    protected function getVcsIgnoreFiles()
+    protected function getVcsIgnoreFiles(array $dirs)
     {
-        return [
+        $files = [
             '.gitignore',
             '.hgignore',
             '_darcs/prefs/boring',
         ];
+        $filepaths = [];
+        foreach ($dirs as $dir) {
+            foreach ($files as $file) {
+                $filepaths[] = Path::combine($dir, $file);
+            }
+        }
+        return $filepaths;
     }
 
     /**
@@ -70,7 +83,7 @@ class DefaultFinder extends Finder
      */
     private function readExcludeLines($ignoreFile)
     {
-        if (!is_file($ignoreFile)) {
+        if (!file_exists($ignoreFile)) {
             return [];
         }
         $lines = file($ignoreFile);
