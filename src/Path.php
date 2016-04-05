@@ -6,6 +6,9 @@ namespace nochso\Omni;
  */
 final class Path
 {
+    private $scheme = '';
+    private $path = '';
+
     /**
      * Combine any amount of strings into a path.
      *
@@ -20,14 +23,17 @@ final class Path
         // Keep non-empty elements
         $paths = array_filter($paths, 'strlen');
 
-        // Join and localize
+        // Join parts
         $path = implode(DIRECTORY_SEPARATOR, $paths);
-        $path = self::localize($path);
+
+        // Localize everything after an optional scheme://
+        $path = self::create($path);
+        $path->path = self::localize($path->path);
         // Replace multiple with single separator
         $quotedSeparator = preg_quote(DIRECTORY_SEPARATOR);
         $pattern = '#' . $quotedSeparator . '+#';
-        $combined = preg_replace($pattern, $quotedSeparator, $path);
-        return $combined;
+        $path->path = preg_replace($pattern, $quotedSeparator, $path->path);
+        return (string) $path;
     }
 
     /**
@@ -40,7 +46,11 @@ final class Path
      */
     public static function localize($path, $directorySeparator = DIRECTORY_SEPARATOR)
     {
-        return str_replace(['\\', '/'], $directorySeparator, $path);
+        if (!$path instanceof self) {
+            $path = self::create($path);
+        }
+        $path->path = str_replace(['\\', '/'], $directorySeparator, $path->path);
+        return (string) $path;
     }
 
     /**
@@ -75,5 +85,29 @@ final class Path
     public static function isAbsolute($path)
     {
         return preg_match('/^([\\/\\\\]|[a-z]:[\\/\\\\])/', $path) === 1;
+    }
+
+    public function __toString()
+    {
+        return $this->scheme . $this->path;
+    }
+
+    /**
+     * @param string $fullPath
+     *
+     * @return \nochso\Omni\Path
+     */
+    private static function create($fullPath)
+    {
+        $path = new self();
+        $path->path = $fullPath;
+        if (preg_match('/^([a-z]+:\\/\\/)?(.*)$/', $fullPath, $matches)) {
+            $path->scheme = $matches[1];
+            $path->path = $matches[2];
+        }
+        if ($path->scheme !== '') {
+            $path->path = ltrim($path->path, '\\/');
+        }
+        return $path;
     }
 }
