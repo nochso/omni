@@ -14,13 +14,15 @@ final class Multiline extends ArrayCollection
     /**
      * Create a new Multiline object from a string.
      *
-     * Use the `EOL::EOL_*` class constants.
+     * First the input string is split into lines by the detected end-of-line
+     * character. Afterwards any extra EOL chars will be trimmed.
      *
      * @see \nochso\Omni\EOL
      *
      * @param string $input      A string to split into a Multiline object
-     * @param string $defaultEol Default end-of-line type to use if it can not be detected from the input string.
-     *                           Optional, defaults to `EOL::EOL_LF` i.e. "\n"
+     * @param string $defaultEol Default end-of-line type to split the input by. This is a fallback in case it could
+     *                           not be detected from the input string. Optional, defaults to `EOL::EOL_LF` i.e. "\n".
+     *                           See the `EOL::EOL_*` class constants.
      *
      * @return \nochso\Omni\Multiline
      */

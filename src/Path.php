@@ -76,11 +76,13 @@ final class Path
     }
 
     /**
-     * isAbsolute checks for an absolute UNIX or Windows path.
+     * isAbsolute checks for an absolute UNIX, Windows or scheme:// path.
+     *
+     * Note that paths containing parent dots (`..`) can still be considered absolute.
      *
      * @param string $path
      *
-     * @return bool True if the path is absolute.
+     * @return bool True if the path is absolute i.e. it should be safe to append a relative path to it.
      */
     public static function isAbsolute($path)
     {
