@@ -3,6 +3,7 @@ namespace nochso\Omni\Test;
 
 use nochso\Omni\Folder;
 use nochso\Omni\Path;
+use org\bovigo\vfs\vfsStream;
 
 class FolderTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,6 +15,7 @@ class FolderTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         self::$base = Path::combine(__DIR__, 'temp', 'Folder');
+        Folder::delete(self::$base);
     }
 
     public static function tearDownAfterClass()
@@ -68,5 +70,37 @@ class FolderTest extends \PHPUnit_Framework_TestCase
         Folder::ensure($base);
         Folder::delete($base);
         $this->assertFalse(is_dir($base));
+    }
+
+    public function testDelete_WhenFolderMissing_MustNotThrow()
+    {
+        $base = Path::combine(self::$base, 'delete_missing');
+        $this->assertFalse(is_dir($base), 'Unable to set up test');
+        Folder::delete($base);
+        $this->assertFalse(is_dir($base));
+    }
+
+    public function testDelete_FailToDeleteFile_MustThrow()
+    {
+        $root = vfsStream::setup('root', 0400);
+        vfsStream::newFile('test', 0444)->at($root);
+        $this->expectException('RuntimeException');
+        Folder::delete($root->url());
+    }
+
+    public function testDelete_FailToDeleteFolder_MustThrow()
+    {
+        $root = vfsStream::setup('root', 0444);
+        $folder = vfsStream::newDirectory('test', 0444)->at($root);
+        $this->expectException('RuntimeException');
+        Folder::delete($root->url());
+    }
+
+    public function testDelete_FailToDeleteRootFolder_MustThrow()
+    {
+        $root = vfsStream::setup('root', 0444);
+        $folder = vfsStream::newDirectory('test', 0444)->at($root);
+        $this->expectException('RuntimeException');
+        Folder::delete($folder->url());
     }
 }
