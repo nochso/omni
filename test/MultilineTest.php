@@ -6,6 +6,48 @@ use nochso\Omni\Multiline;
 
 class MultilineTest extends \PHPUnit_Framework_TestCase
 {
+    public function getLinesProvider()
+    {
+        return [
+            [['a', 'b'], "a\nb"],
+            [['a', 'b'], "a\r\nb"],
+            [['a', 'b', ''], "a\nb\n"],
+        ];
+    }
+
+    /**
+     * @dataProvider getLinesProvider
+     *
+     * @param string[] $expectedLines
+     * @param string   $input
+     */
+    public function testGetLines(array $expectedLines, $input)
+    {
+        $ml = Multiline::create($input);
+        $this->assertSame($expectedLines, $ml->toArray());
+    }
+
+    public function createProvider()
+    {
+        return [
+            ["a\nb", "a\nb"],
+            ["a\r\nb", "a\r\nb"],
+            'Must clean up left over line feeds' => ["a\nb\nc", "a\r\nb\nc"],
+        ];
+    }
+
+    /**
+     * @dataProvider createProvider
+     *
+     * @param string $expected
+     * @param string $input
+     */
+    public function testCreate($expected, $input)
+    {
+        $ml = Multiline::create($input);
+        $this->assertSame($expected, (string) $ml);
+    }
+
     public function padProvider()
     {
         return [
@@ -47,12 +89,6 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
     {
         $ml = Multiline::create($input)->prefix($prefix);
         $this->assertSame($expected, (string) $ml);
-    }
-
-    public function testGetLines()
-    {
-        $ml = Multiline::create("a\nb");
-        $this->assertSame(['a', 'b'], $ml->toArray());
     }
 
     public function testGetEOL()
