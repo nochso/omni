@@ -131,4 +131,15 @@ class MultilineTest extends \PHPUnit_Framework_TestCase
         $ml = Multiline::create("a\nbb\nüäö");
         $this->assertSame(3, $ml->getMaxLength());
     }
+
+    public function testGetLineIndexByCharacterPosition()
+    {
+        $ml = Multiline::create("ü\nbb\nccc");
+        $this->assertSame(0, $ml->getLineIndexByCharacterPosition(1));
+        $this->assertSame(0, $ml->getLineIndexByCharacterPosition(2), 'Line feeds belong to the line it is ending with');
+        $this->assertSame(1, $ml->getLineIndexByCharacterPosition(3));
+        $this->assertSame(2, $ml->getLineIndexByCharacterPosition(9));
+        $this->assertSame(null, $ml->getLineIndexByCharacterPosition(10), 'Invalid position must return null');
+        $this->assertSame(null, $ml->getLineIndexByCharacterPosition(-1), 'Invalid (negative) position return null');
+    }
 }
