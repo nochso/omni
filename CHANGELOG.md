@@ -14,6 +14,9 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Added
+- New method `Multiline::getLineIndexByCharacterPosition` returns the line index containing a certain position.
+
 ### Changed
 - `Path::isAbsolute` recognizes `scheme://` URIs as absolute.
 

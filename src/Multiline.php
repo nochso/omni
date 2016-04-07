@@ -145,4 +145,24 @@ final class Multiline extends ArrayCollection
         };
         return $this->apply($padder);
     }
+
+    /**
+     * getLineIndexByCharacterPosition returns the line index containing a certain position.
+     *
+     * @param int $characterPosition Position of a character as if Multiline was a raw string.
+     *
+     * @return int|null The array index of the line containing the character position.
+     */
+    public function getLineIndexByCharacterPosition($characterPosition)
+    {
+        $position = 0;
+        foreach ($this->list as $key => $line) {
+            $length = mb_strlen($line . $this->getEol());
+            if ($characterPosition >= $position && $characterPosition <= $position + $length) {
+                return $key;
+            }
+            $position += $length;
+        }
+        return null;
+    }
 }
