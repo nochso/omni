@@ -81,7 +81,7 @@ class Duration
      *
      * @param int $format
      *
-     * @return \nochso\Omni\Duration
+     * @return \nochso\Omni\Format\Duration
      */
     public static function create($format = self::FORMAT_SHORT)
     {
