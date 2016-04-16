@@ -126,7 +126,6 @@ This is a summary of namespaces, classes, interfaces, traits and public/protecte
         - `localize` directory separators for any file path according to current environment.
         - `contains` returns true if a base path contains a needle.
         - `isAbsolute` checks for an absolute UNIX, Windows or scheme:// path.
-        - `__toString`
     - `C` `Strings` class provides methods for string handling missing from default PHP.
         - `startsWith` returns true if the input begins with a prefix.
         - `endsWith` returns true if the input ends with a suffix.
@@ -187,14 +186,10 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between release
 ## [Unreleased]
 
 
-## [0.3.6]
+## [0.3.7] - 2016-04-16
 
-### Added
-- New method `Multiline::getLineIndexByCharacterPosition` returns the line index containing a certain position.
-
-
-### Changed
-- `Path::isAbsolute` recognizes `scheme://` URIs as absolute.
+### Fixed
+- Fix handling of absolute `scheme://` paths in `Path::combine`
 
 
 

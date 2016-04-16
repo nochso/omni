@@ -14,8 +14,10 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.3.7] - 2016-04-16
 ### Fixed
-- Fixed handling of absolute `scheme://` paths in `Path::combine`
+- Fix handling of absolute `scheme://` paths in `Path::combine`
 
 ## [0.3.6]
 ### Added
@@ -121,7 +123,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.3.6...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.3.7...HEAD
+[0.3.7]: https://github.com/nochso/omni/compare/0.3.6...0.3.7
 [0.3.6]: https://github.com/nochso/omni/compare/0.3.5...0.3.6
 [0.3.5]: https://github.com/nochso/omni/compare/0.3.4...0.3.5
 [0.3.4]: https://github.com/nochso/omni/compare/0.3.3...0.3.4
