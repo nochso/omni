@@ -23,8 +23,9 @@ class PathTest extends \PHPUnit_Framework_TestCase
             ['1/2/3', [['1/2/', '/3']], 'Multiple slashes should be simplified'],
             ['./1/2/3/', [['.//1//2//', '3//']], 'Multiple slashes should be simplified'],
             ['protocol://folder', [['protocol://', 'folder']]],
-            ['protocol://folder', [['protocol://', '/folder']]],
-            ['protocol://folder/', [['protocol://', '//folder/']]],
+            ['protocol:///folder', [['protocol://', '/folder']]],
+            ['protocol:///folder/', [['protocol://', '//folder/']]],
+            ['phar:///home/user/phormat.phar/src/Format/Template/../template/Text.php', ['phar:///home/user/phormat.phar/src/Format/Template/../template', 'Text.php']],
         ];
         if (OS::isWindows()) {
             foreach ($tests as &$test) {
