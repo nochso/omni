@@ -14,6 +14,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Added
+- Add placeholder `%s` for quantity in `Format\Quantity`.
 
 ## [0.3.7] - 2016-04-16
 ### Fixed

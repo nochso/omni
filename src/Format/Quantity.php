@@ -18,6 +18,12 @@ use nochso\Omni\Numeric;
  * Quantity::format('day(s)', 0); // days
  * ```
  *
+ * You can also use `%s` as a placeholder for the quantity:
+ *
+ * ```php
+ * Quantity::format('%s day(s)', 2); // 2 days
+ * ```
+ *
  * If the `zero` format is not defined, the plural form will be used instead.
  * Alternatively you can use an empty string:
  *
@@ -62,6 +68,8 @@ class Quantity {
 			return Dot::get($choices, $choice, '');
 		};
 		$pattern = '/(?<!\\\\)(\\((.+?(?<!\\\\))\\))/';
-		return preg_replace_callback($pattern, $callback, $format);
+		$out = preg_replace_callback($pattern, $callback, $format);
+		$out = sprintf($out, $quantity);
+		return $out;
 	}
 }
