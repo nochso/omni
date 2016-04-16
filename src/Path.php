@@ -6,9 +6,6 @@ namespace nochso\Omni;
  */
 final class Path
 {
-    private $scheme = '';
-    private $path = '';
-
     /**
      * Combine any amount of strings into a path.
      *
@@ -23,17 +20,15 @@ final class Path
         // Keep non-empty elements
         $paths = array_filter($paths, 'strlen');
 
-        // Join parts
+        // Split into scheme:// and rest
+        $scheme = self::extractScheme($paths);
+        // Implode, localize and simplify everything after scheme://
         $path = implode(DIRECTORY_SEPARATOR, $paths);
-
-        // Localize everything after an optional scheme://
-        $path = self::create($path);
-        $path->path = self::localize($path->path);
-        // Replace multiple with single separator
+        $path = self::localize($path);
         $quotedSeparator = preg_quote(DIRECTORY_SEPARATOR);
         $pattern = '#' . $quotedSeparator . '+#';
-        $path->path = preg_replace($pattern, $quotedSeparator, $path->path);
-        return (string) $path;
+        $path = preg_replace($pattern, $quotedSeparator, $path);
+        return $scheme . $path;
     }
 
     /**
@@ -46,11 +41,14 @@ final class Path
      */
     public static function localize($path, $directorySeparator = DIRECTORY_SEPARATOR)
     {
-        if (!$path instanceof self) {
-            $path = self::create($path);
+        $paths = [$path];
+        // Do not localize scheme:// paths
+        $scheme = self::extractScheme($paths);
+        if ($scheme !== '') {
+            return $path;
         }
-        $path->path = str_replace(['\\', '/'], $directorySeparator, $path->path);
-        return (string) $path;
+        $path = str_replace(['\\', '/'], $directorySeparator, $path);
+        return $path;
     }
 
     /**
@@ -95,27 +93,18 @@ final class Path
         return preg_match($pattern, $path) === 1;
     }
 
-    public function __toString()
-    {
-        return $this->scheme . $this->path;
-    }
-
-    /**
-     * @param string $fullPath
-     *
-     * @return \nochso\Omni\Path
-     */
-    private static function create($fullPath)
-    {
-        $path = new self();
-        $path->path = $fullPath;
-        if (preg_match('/^([a-z]+:\\/\\/)?(.*)$/', $fullPath, $matches)) {
-            $path->scheme = $matches[1];
-            $path->path = $matches[2];
+    private static function extractScheme(&$parts) {
+        if (!count($parts)) {
+            return '';
         }
-        if ($path->scheme !== '') {
-            $path->path = ltrim($path->path, '\\/');
+        $first = reset($parts);
+        if (preg_match('/^([a-z]+:\\/\\/)(.*)$/', $first, $matches)) {
+            array_shift($parts);
+            if ($matches[2] !== '') {
+                array_unshift($parts, $matches[2]);
+            }
+            return $matches[1];
         }
-        return $path;
+        return '';
     }
 }

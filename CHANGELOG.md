@@ -14,6 +14,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Fixed
+- Fixed handling of absolute `scheme://` paths in `Path::combine`
 
 ## [0.3.6]
 ### Added
