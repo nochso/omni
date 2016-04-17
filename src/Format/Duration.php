@@ -15,6 +15,7 @@ use nochso\Omni\Numeric;
  * ```
  */
 class Duration {
+	const MILLISECOND = '0.001';
 	const SECOND = 1;
 	const MINUTE = 60;
 	const HOUR = self::MINUTE * 60;
@@ -40,6 +41,7 @@ class Duration {
 			self::HOUR => 'h',
 			self::MINUTE => 'm',
 			self::SECOND => 's',
+			self::MILLISECOND => 'ms',
 		],
 		self::FORMAT_LONG => [
 			self::YEAR => ' year(s)',
@@ -49,6 +51,7 @@ class Duration {
 			self::HOUR => ' hour(s)',
 			self::MINUTE => ' minute(s)',
 			self::SECOND => ' second(s)',
+			self::MILLISECOND => ' millisecond(s)',
 		],
 	];
 	/**
@@ -163,7 +166,12 @@ class Duration {
 		$parts = [];
 		foreach ($steps as $minValue => $suffix) {
 			if ($seconds >= $minValue) {
-				$stepValue = floor($seconds / $minValue);
+				$stepValue = $seconds / $minValue;
+				if ($minValue < 1) {
+					$stepValue = round($stepValue);
+				} else {
+					$stepValue = floor($stepValue);
+				}
 				if ($stepValue > 0) {
 					$suffix = Quantity::format($suffix, $stepValue);
 					$parts[] = $stepValue . $suffix;
@@ -190,6 +198,6 @@ class Duration {
 			$d1 = new \DateTime('@0');
 			return $d1->add($duration)->getTimestamp();
 		}
-		return Numeric::ensureInteger($duration);
+		return Numeric::ensure($duration);
 	}
 }
