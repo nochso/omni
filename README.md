@@ -75,10 +75,11 @@ This is a short summary of namespaces, classes, interfaces and traits.
 # Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between releases.
 
-## [Unreleased]
+## [0.3.8]
 
 ### Added
 - Add placeholder `%s` for quantity in `Format\Quantity`.
+
 
 ### Changed
 - `DurationFormat` can now handle milliseconds.

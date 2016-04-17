@@ -14,8 +14,11 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.3.8]
 ### Added
 - Add placeholder `%s` for quantity in `Format\Quantity`.
+
 ### Changed
 - `DurationFormat` can now handle milliseconds.
 
@@ -127,7 +130,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.3.7...HEAD
+[Unreleased]: https://github.com/nochso/omni/compare/0.3.8...HEAD
+[0.3.8]: https://github.com/nochso/omni/compare/0.3.7...0.3.8
 [0.3.7]: https://github.com/nochso/omni/compare/0.3.6...0.3.7
 [0.3.6]: https://github.com/nochso/omni/compare/0.3.5...0.3.6
 [0.3.5]: https://github.com/nochso/omni/compare/0.3.4...0.3.5
