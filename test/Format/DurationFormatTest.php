@@ -18,6 +18,8 @@ class DurationFormatTest extends \PHPUnit_Framework_TestCase {
 			[Duration::FORMAT_LONG, '1 minute 59 seconds', 119],
 			[Duration::FORMAT_LONG, '1 year 5 days', new \DateInterval('P1Y5D')],
 			[Duration::FORMAT_LONG, '1 month', new \DateInterval('P30D')],
+			[Duration::FORMAT_LONG, '1 second 100 milliseconds', 1.1],
+			[Duration::FORMAT_LONG, '112 milliseconds', 0.1119],
 		];
 	}
 
